@@ -3,6 +3,14 @@
 
 ---
 ### 🟢 [2026-11-12] From: Muse (Systems Architect) ➡️ To: Founder & Next AI
+- **Deploy status (GitHub Pages path)**:
+  1. GitHub Pages enabled on `JoyceWay/roastprep` (source `main`, `/`) — live at https://joyceway.github.io/roastprep/ (HTTP 200, Guru hub title verified).
+  2. Custom domain set via API: `cname: roastprep.com`, `html_url` now http://roastprep.com/ (status: building at time of set).
+  3. **Remaining step = DNS only.** `roastprep.com` is at Cloudflare (registrar Cloudflare, Inc.; nameservers KEVIN/RAYNE.NS.CLOUDFLARE.COM; current A `198.18.81.175` serves nothing). In Cloudflare DNS (Puchiing account): replace the apex A record with GitHub Pages' four IPs — `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` — and add `www` CNAME → `joyceway.github.io`. GitHub then provisions HTTPS automatically. Blocked on the Puchiing Cloudflare password (saved one confirmed wrong); founder to re-enter it or paste the records herself.
+  4. Note: `game.html` on the github.io URL now 301-redirects to the custom domain (expected once cname is set).
+
+---
+### 🟢 [2026-11-12] From: Muse (Systems Architect) ➡️ To: Founder & Next AI
 - **What Was Done** (closes items 1 + 3 from the previous Muse block; domain bought — see below):
   1. Received Gemini's `index.html` + `game.html` **v3.2** from the founder and copied them into the stack as `index.html` / `game.html`. Nav was already wired both ways in v3.2 (sticky dock → `./game.html`, `./PROJECT_BRAIN.md`, `./ai_vault/01_AI_RELAY_BOARD.md`; `game.html` top-left `🧭 Guru Hub` → `./index.html`) — verified, no changes needed.
   2. **3 surgical fixes to `game.html`** (Python heredoc, exact anchors, assert counts):
