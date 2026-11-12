@@ -16,7 +16,7 @@
 | S07 | Money & Everyday Life | 30 | 300 | ⚪ Proposed slot — founder to confirm theme |
 | S08 | Mixed Review & Boss Rush | 30 | 300 | ⚪ Proposed slot — founder to confirm theme |
 
-- *Seed episodes carry **6 words each** (18 words for the first 3). The 300-word season target implies 10 words per episode for episodes 4–30 — **founder / Gemini to confirm**: pad the seed episodes to 10, or revise the season total to 180.
+- *Word-count rule (decided by founder + Gemini, 2026-11-12): **10 words per episode, 30 episodes = 300 words/season**. Composition is **6 + 2 + 2**: words 1–6 are the Stage 1 chat sticker words; words 7–8 are the Stage 2 boss options (both, right + tempting-wrong); words 9–10 are the Stage 3 SAT correct answer + 1 high-frequency SAT choice. Chat stays at **6 messages** (90-second pace). All 10 words must be **distinct** — if a boss or SAT word already appears among the 6 chat words (e.g. E01 `candid`, E02 `corroborate`, E03 `dormant` / `ephemeral`), take the next high-frequency choice instead. Seed episodes S01E01–E03 were padded to 10 on 2026-11-12 (Muse) — 30 words total.
 - S02–S08 themes above are **proposals, not decisions**. Founder confirms or renames each theme before Gemini generates it.
 - Season 2 includes the Founding 50 NPC pet cameo (see PROJECT_BRAIN.md M5).
 
@@ -86,7 +86,7 @@ One episode = one object inside the array returned by `buildEpisodes()`. Keys ar
 
 Field rules (verified against the seed data, 2026-11-12):
 - `code`: `S01E01` … `S01E30` — season + episode-in-season. (v3.2 shipped S02E01/S03E01 by mistake; Muse renumbered to S01E02/S01E03.)
-- `vocab`: an **object keyed by the word itself** (not an array). Seed episodes carry 6 entries each.
+- `vocab`: an **object keyed by the word itself** (not an array). **10 entries per episode: 6 chat sticker words + 2 boss-option words + SAT correct answer + 1 high-frequency SAT choice** (see §1). All 10 distinct — dedup against the chat words first (a boss/SAT word that duplicates a chat word does not count twice; take the next high-frequency choice). Every entry carries all 8 fields: `word`, `pos` (with IPA), `def_en`, `def_zh`, `root`, `story_hook`, `savage_roast`, `synonyms[]`.
 - `chat`: 6 messages per seed episode. `sender` uses `${PETS.c1}`-style placeholders — never hard-code pet names. Every message has both `en` and `zh`.
 - `boss.options`: exactly 2 — one `correct: true`, one `correct: false`. `desc` is the English definition shown after answering.
 - `sat.choices`: exactly 4, letters A–D, one `correct: true`.
@@ -104,8 +104,11 @@ Write FIVE episodes as a JSON array following the EPISODES schema in
 Copy the key names and nesting exactly — the game loads them verbatim.
 
 Season: S01 — Time-Travel History. Episodes: <N>–<N+4> — <historical scenes>.
-Words: 10 per episode, SAT-level. Every word must appear in the chat,
-the boss battle, AND the SAT passage of its episode.
+Words: 10 per episode, SAT-level, composition 6 + 2 + 2 (see §1). The 6 chat
+words appear as highlighted stickers in the 6 chat messages; the 2 boss words
+are the two boss-battle options; the SAT words are the correct answer + 1
+high-frequency choice. All 10 must be distinct — if a boss or SAT word already
+appears among the 6 chat words, take the next high-frequency choice instead.
 
 Voice rules:
 - Poppy (cat1) roasts with deadpan academic precision. Mochi (cat2) is
@@ -137,4 +140,3 @@ Batch size: 5 episodes per run. After each batch, hand the JSON to Muse for the 
 ## 5. Known Gaps (not blocking launch)
 
 - `story_hook` / `savage_roast` / `root` have no Chinese twins yet — the vocab drawer shows the English hook even with the lens ON. M4 follow-up: add `story_hook_zh` / `savage_roast_zh` / `root_zh` when batch-generating, or accept English-only flavor lines.
-- Season word-count question (§1): seed 6/episode vs. 300-word season target.

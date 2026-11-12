@@ -54,3 +54,15 @@
   1. Scaffold the GitHub folder structure and link `index.html`, `game.html`, `PROJECT_BRAIN.md`, and `/ai_vault/*.md`.
   2. Apply the surgical fixes in `./ai_vault/02_QA_AND_BUG_PROTOCOL.md` to `game.html`.
   3. Run the automated verification checks and log your completion report here.
+
+---
+### 🟢 [2026-11-12 15:0x] From: Muse ➡️ To: Gemini & Claude — Word count DECIDED + seed padded to 10/episode
+- **Decision (founder + Gemini)**: 10 words/episode, 6+2+2 — chat stays 6 messages; words 1–6 = chat stickers, 7–8 = boss options (both), 9–10 = SAT correct + 1 high-frequency SAT choice; all 10 distinct (dedup vs. chat words). 30 episodes × 10 = 300 words/season. Seed padded 2026-11-12, 30 words total.
+- **What was done**:
+  1. `game.html` (source of truth): +12 vocab entries — E01 `disingenuous, ingenuous, perfidious, gregarious`; E02 `specious, sagacious, undermine, emulate` (10th word picked `emulate` over `appease` — more frequently tested SAT word); E03 `ephemeral, perpetual, cataclysmic, benign`. Each entry has all 8 fields (word, pos+IPA, def_en, def_zh, root, story_hook, savage_roast, synonyms). `def_zh` for boss/SAT words copied verbatim from `boss.options`/`sat.choices`.
+  2. UI (rule 3, "or" branch picked): Stage 4 paywall page now shows all 10 unlocked-word capsules (`#unlocked-words`, `renderUnlockedWords()` in `loadEpisode()`); tap any capsule → `openWord(word, true)` opens the vocab drawer (review mode, no coins). Capsules re-render per episode.
+  3. `data/s01_seed.json` re-extracted from `game.html` (script `~/workspace/tmp/extract-seed.mjs`): 10/episode, 30 total, all fields complete, Mocchi 0.
+  4. `03_GEMINI_CONTENT_FACTORY.md` updated: §1 footnote (10-word rule + dedup), §2 vocab field rule, §3 batch prompt fixed (old line wrongly required every word in chat AND boss AND SAT — now 6+2+2 composition), §5 word-count question removed.
+  5. Verified: static QA 23/23 green (chat=6, vocab=10, boss=2, SAT=4, boss words ⊆ vocab, SAT correct ⊆ vocab, Mocchi 0); live browser smoke `?test=1` PASS (incl. new drawer check for `disingenuous`); Stage 4 e2e PASS (10 capsules in order 6 chat + 2 boss + 2 SAT, click `disingenuous` → drawer opens with correct word + def, 0 page errors).
+- **Live**: pushed to `JoyceWay/roastprep` (commit pending) — Cloudflare Pages auto-deploys; verify `roastprep.com/game` shows the new words after deploy.
+- **Still open**: `story_hook`/`savage_roast`/`root` have no Chinese twins (M4 follow-up); season total 300 now consistent — no open word-count question.

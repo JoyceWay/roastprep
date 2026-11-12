@@ -98,6 +98,62 @@
             "frank",
             "blunt"
           ]
+        },
+        "disingenuous": {
+          "word": "disingenuous",
+          "pos": "adj. /ˌdɪs.ɪnˈdʒen.ju.əs/",
+          "def_en": "Insincere; pretending to be more innocent or honest than one really is.",
+          "def_zh": "虚伪狡诈的；假装无辜/不知情的",
+          "root": "dis- (not) + ingenuous (innocent) → pretending to be innocent when you're not.",
+          "story_hook": "${PETS.c2} batting innocent eyelashes at the Queen while cake frosting covers both paws.",
+          "savage_roast": "Saying \"who, me?\" with frosting on your chin and crumbs on your wig.",
+          "synonyms": [
+            "insincere",
+            "deceitful",
+            "duplicitous"
+          ]
+        },
+        "ingenuous": {
+          "word": "ingenuous",
+          "pos": "adj. /ɪnˈdʒen.ju.əs/",
+          "def_en": "Truly innocent, artless, and candid; childlike honesty.",
+          "def_zh": "真正天真无邪的；坦率真诚的",
+          "root": "ingenuus (freeborn, frank) → honest because you were born that way, not because you practiced.",
+          "story_hook": "${PETS.d1} wagging his tail and telling the Queen exactly where the cake went — zero filter, zero lies.",
+          "savage_roast": "The one kid who raises his hand and admits he ate the cookies before anyone even asks.",
+          "synonyms": [
+            "artless",
+            "candid",
+            "naive"
+          ]
+        },
+        "perfidious": {
+          "word": "perfidious",
+          "pos": "adj. /pərˈfɪd.i.əs/",
+          "def_en": "Deceitful and untrustworthy; betraying trust.",
+          "def_zh": "背信弃义的；当面一套背后一套的",
+          "root": "per- (thoroughly) + fides (faith, trust) → breaking faith completely.",
+          "story_hook": "The courtier who curtsies to the Queen at noon and sells her secrets to rivals by dinner.",
+          "savage_roast": "Texting \"you're my bestie\" in the group chat while screenshotting it to the other group chat.",
+          "synonyms": [
+            "treacherous",
+            "disloyal",
+            "deceitful"
+          ]
+        },
+        "gregarious": {
+          "word": "gregarious",
+          "pos": "adj. /ɡrɪˈɡeər.i.əs/",
+          "def_en": "Fond of company; sociable and outgoing.",
+          "def_zh": "爱交际的；合群的",
+          "root": "grex (flock, herd) → someone who loves the flock and can't stand being alone.",
+          "story_hook": "${PETS.c3} crashing every group chat at Versailles just to hear the latest gossip first.",
+          "savage_roast": "Joining a study group for the snacks and staying for all six hours of drama.",
+          "synonyms": [
+            "sociable",
+            "outgoing",
+            "convivial"
+          ]
         }
       },
       "chat": [
@@ -299,6 +355,62 @@
             "buttress",
             "fortify"
           ]
+        },
+        "specious": {
+          "word": "specious",
+          "pos": "adj. /ˈspiː.ʃəs/",
+          "def_en": "Sounding smart on the surface, but actually false; misleadingly plausible.",
+          "def_zh": "似是而非的；表面有理实则错误的",
+          "root": "species (appearance, look) → it LOOKS true; that's the whole trick.",
+          "story_hook": "The inquisitor's bird argument: sounds like physics, falls apart the second ${PETS.d1} barks at it.",
+          "savage_roast": "A headline that sounds genius until you read past the first sentence.",
+          "synonyms": [
+            "misleading",
+            "fallacious",
+            "deceptive"
+          ]
+        },
+        "sagacious": {
+          "word": "sagacious",
+          "pos": "adj. /səˈɡeɪ.ʃəs/",
+          "def_en": "Having keen mental wisdom and brilliant judgment; shrewd.",
+          "def_zh": "睿智的；有远见卓识的",
+          "root": "sagax (sharp, keen-sensed) → wisdom so sharp it cuts through noise.",
+          "story_hook": "${PETS.c1} watching Galileo's trial from the highest shelf, already knowing who history will remember.",
+          "savage_roast": "The friend who calls the plot twist in episode one while everyone else is still buffering.",
+          "synonyms": [
+            "wise",
+            "astute",
+            "shrewd"
+          ]
+        },
+        "undermine": {
+          "word": "undermine",
+          "pos": "v. /ˌʌn.dərˈmaɪn/",
+          "def_en": "To weaken or damage something gradually, often secretly.",
+          "def_zh": "削弱；暗中动摇",
+          "root": "under- (beneath) + mine (dig) → digging under the walls until the whole thing collapses.",
+          "story_hook": "Critics chipping away at Galileo's telescope findings one blurry lens at a time.",
+          "savage_roast": "Complimenting someone's presentation while \"accidentally\" deleting their slides.",
+          "synonyms": [
+            "weaken",
+            "sabotage",
+            "erode"
+          ]
+        },
+        "emulate": {
+          "word": "emulate",
+          "pos": "v. /ˈem.jə.leɪt/",
+          "def_en": "To imitate someone or something with the aim of matching or surpassing it.",
+          "def_zh": "模仿；效仿",
+          "root": "aemulus (rival, striving to equal) → copying the best to beat the best.",
+          "story_hook": "Young astronomers grinding their own lenses to copy Galileo's telescope — and maybe out-see him.",
+          "savage_roast": "Copying the top student's notes, font and all, then acting surprised at the A.",
+          "synonyms": [
+            "imitate",
+            "mirror",
+            "rival"
+          ]
         }
       },
       "chat": [
@@ -499,6 +611,62 @@
             "stimulus",
             "spark",
             "impetus"
+          ]
+        },
+        "ephemeral": {
+          "word": "ephemeral",
+          "pos": "adj. /ɪˈfem.ər.əl/",
+          "def_en": "Lasting for a very short time; fleeting.",
+          "def_zh": "转瞬即逝的；极其短暂的",
+          "root": "epi- (upon) + hemera (day) → living for a single day, like a mayfly.",
+          "story_hook": "Marcus insisting the eruption is a five-minute shower while ash buries the whole neighborhood.",
+          "savage_roast": "A Snapchat story, a trend, and Marcus's confidence — all gone by lunch.",
+          "synonyms": [
+            "fleeting",
+            "transient",
+            "short-lived"
+          ]
+        },
+        "perpetual": {
+          "word": "perpetual",
+          "pos": "adj. /pərˈpetʃ.u.əl/",
+          "def_en": "Never ending or changing; lasting forever.",
+          "def_zh": "永久的；永不停息的",
+          "root": "per- (through) + petere (to seek, go) → going on and on without stopping.",
+          "story_hook": "Twenty feet of ash that will still be there when archaeologists dig it up 2,000 years later.",
+          "savage_roast": "The group project that never ends, the homework that never stops, the Wi-Fi that never works.",
+          "synonyms": [
+            "eternal",
+            "everlasting",
+            "endless"
+          ]
+        },
+        "cataclysmic": {
+          "word": "cataclysmic",
+          "pos": "adj. /ˌkæt.əˈklɪz.mɪk/",
+          "def_en": "Causing large-scale violent disaster; catastrophic.",
+          "def_zh": "灾难性的；剧烈动荡的",
+          "root": "kata- (down) + klyzein (to wash, flood) → a flood that wipes out everything downstream.",
+          "story_hook": "Tambora 1815: one volcano freezes summers and starves three continents — the original Year Without a Summer.",
+          "savage_roast": "Forgetting to save a 10-page essay and watching the laptop die at 2 AM.",
+          "synonyms": [
+            "catastrophic",
+            "devastating",
+            "disastrous"
+          ]
+        },
+        "benign": {
+          "word": "benign",
+          "pos": "adj. /bɪˈnaɪn/",
+          "def_en": "Gentle, kindly, and harmless; not dangerous.",
+          "def_zh": "良性的；温和无害的",
+          "root": "bene (good, well) + genus (born) → born good-natured, harmless by nature.",
+          "story_hook": "The volcano that only rumbles politely for centuries — the opposite of Tambora's temper tantrum.",
+          "savage_roast": "A teacher who says \"this won't be on the test\" and actually means it.",
+          "synonyms": [
+            "harmless",
+            "gentle",
+            "mild"
           ]
         }
       },
