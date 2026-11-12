@@ -1,0 +1,37 @@
+# RoastPrep
+
+> Gamified Digital SAT & K-12 vocabulary platform. Learn words through humor: cross-time group chats, boss battles, and authentic words-in-context arenas. Story Mode (G5-G8) and Savage Mode (G9-G12). One-click Chinese Lens for bilingual families.
+
+## Products
+
+- Solo Pass: $49, one learner, full Season 1 (30 episodes, 300 words)
+- Household Family Pass: $79, up to 3 siblings, full Season 1
+- Founding 50 Family Pass: launch offer on Thanksgiving, Nov 26, 2026 (includes permanent Season 2 NPC pet cameo)
+
+## Domains
+
+- Primary storefront: https://roastprep.com
+- School mirror & ESA / homeschool receipt generator: https://roastprep.org
+
+## Links
+
+- Guru Command Hub: https://roastprep.com/index.html
+- SAT Game: https://roastprep.com/game.html
+- Master architecture: https://roastprep.com/PROJECT_BRAIN.md
+- AI Relay Board: https://roastprep.com/ai_vault/01_AI_RELAY_BOARD.md
+- QA Protocol: https://roastprep.com/ai_vault/02_QA_AND_BUG_PROTOCOL.md
+
+## The 5-Pet Squad
+
+- Poppy (cat1): aloof Ivy-League audit cat, deadpan academic roaster
+- Mochi (cat2): chaotic snack-obsessed agent cat
+- Luna (cat3): gossip instigator & screenshot queen
+- Boba (cat4): historical fashion & vibe critic
+- Buster (dog1): golden-retriever-energy translator
+
+## Notes for AI agents
+
+- Read PROJECT_BRAIN.md before modifying anything.
+- Never alter the JSON schema keys used in game.html: vocab, chat, boss, sat.
+- The second core cat is spelled Mochi.
+- Bilingual: English UI by default; ?lens=zh reveals Chinese translations across all stages.

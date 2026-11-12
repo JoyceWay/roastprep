@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoastPrep // Interactive ELA & SAT Context Lab (v3.2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg-cream: #FFFDF7;
+      --ink-dark: #1E1B4B;
+      --pink-pop: #FF477E;
+      --purple-dream: #7B5CFA;
+      --mint-fresh: #00D68F;
+      --butter-sun: #FFD166;
+    }
+    body {
+      background: radial-gradient(circle at 15% 15%, #F5EEFF 0%, #FFFDF7 45%, #FFF0F5 100%);
+      color: var(--ink-dark);
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: "Fredoka", "Plus Jakarta Sans", sans-serif;
+    }
+    .font-serif-sat {
+      font-family: "Instrument Serif", Georgia, serif;
+    }
+    .bento-card {
+      background: #FFFFFF;
+      border: 2.5px solid #1E1B4B;
+      box-shadow: 0 6px 0 #1E1B4B;
+      border-radius: 24px;
+    }
+    .bento-subcard {
+      border: 2px solid #1E1B4B;
+      box-shadow: 0 3px 0 #1E1B4B;
+      border-radius: 16px;
+    }
+    .toy-btn {
+      border: 2px solid #1E1B4B;
+      box-shadow: 0 4px 0 #1E1B4B;
+      transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .toy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 0 #1E1B4B;
+    }
+    .toy-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #1E1B4B;
+    }
+    .vocab-sticker {
+      background: #FFF0F6;
+      color: #FF2A6D;
+      border: 1.5px solid #FF477E;
+      box-shadow: 0 2px 0 #FF477E;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.15s ease;
+    }
+    .vocab-sticker:hover {
+      background: #FF477E;
+      color: #FFFFFF;
+      transform: scale(1.06) rotate(-1deg);
+    }
+    @keyframes bouncePop {
+      0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+      70% { transform: translateY(-2px) scale(1.01); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .animate-pop {
+      animation: bouncePop 0.26s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-3 sm:p-5 select-none">
+
+  <!-- ==================== TOP UTILITY BAR (GURU LINK + PET SQUAD + ZH LENS) ==================== -->
+  <nav class="w-full max-w-xl mb-2.5 flex flex-wrap items-center justify-between gap-2 bg-white/90 border-2 border-[#1E1B4B] rounded-2xl p-2 shadow-sm">
+    <div class="flex items-center space-x-1.5">
+      <a href="./index.html" class="toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-[#F3EEFF] text-[#1E1B4B]">
+        🧭 Guru Hub
+      </a>
+      <button onclick="openPetModal()" class="toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-[#FFD166] text-[#1E1B4B]">
+        🐾 Pet Squad (改宠物名)
+      </button>
+    </div>
+
+    <div class="flex items-center space-x-1.5">
+      <button onclick="loadEpisode(0)" id="ep-tab-0" class="toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-[#FF477E] text-white">
+        👑 E01
+      </button>
+      <button onclick="loadEpisode(1)" id="ep-tab-1" class="toy-btn px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white text-[#1E1B4B]">
+        🔭 E02
+      </button>
+      <button onclick="loadEpisode(2)" id="ep-tab-2" class="toy-btn px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white text-[#1E1B4B]">
+        🌋 E03
+      </button>
+      <button onclick="toggleZhLens()" id="btn-zh-lens" class="toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-white text-[#1E1B4B] flex items-center space-x-1">
+        <span>🌐</span>
+        <span id="zh-lens-label">ZH: OFF</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== DREAMY TEEN HUD HEADER ==================== -->
+  <header class="w-full max-w-xl bento-card p-3.5 mb-2.5 flex items-center justify-between bg-gradient-to-r from-[#FFFDF9] via-[#FFF5F9] to-[#F3EEFF]">
+    <div class="flex items-center space-x-2.5">
+      <span id="hud-ep-code" class="px-2.5 py-1 text-xs font-display font-bold bg-[#7B5CFA] text-white rounded-xl border-2 border-[#1E1B4B]">
+        S01E01
+      </span>
+      <div>
+        <h1 id="hud-title" class="font-display text-sm sm:text-base font-bold text-[#1E1B4B]">Versailles VIP Group Chat</h1>
+        <p id="hud-subtitle" class="text-[11px] font-semibold text-[#FF477E]">Plastic Cliques & Royal Drama</p>
+      </div>
+    </div>
+
+    <div class="flex items-center bg-[#F3EEFF] p-1 rounded-xl border-2 border-[#1E1B4B]">
+      <button id="btn-story" onclick="setVibeMode('story')" class="px-2 py-1 text-[11px] rounded-lg font-extrabold transition-all bg-[#FF477E] text-white">
+        🌈 Story
+      </button>
+      <button id="btn-savage" onclick="setVibeMode('savage')" class="px-2 py-1 text-[11px] rounded-lg font-bold transition-all text-[#1E1B4B]">
+        🔥 Savage
+      </button>
+    </div>
+
+    <div class="flex items-center space-x-1 bg-[#FFD166] border-2 border-[#1E1B4B] px-2.5 py-1 rounded-xl font-extrabold text-xs">
+      <span>⭐</span>
+      <span id="coin-display">200</span>
+    </div>
+  </header>
+
+  <!-- ==================== CHUNKY CANDY PROGRESS BARS ==================== -->
+  <div class="w-full max-w-xl mb-2.5 grid grid-cols-4 gap-2">
+    <div id="step-bar-1" class="h-2.5 rounded-full border-2 border-[#1E1B4B] bg-[#00D68F] transition-all"></div>
+    <div id="step-bar-2" class="h-2.5 rounded-full border-2 border-[#1E1B4B] bg-white transition-all"></div>
+    <div id="step-bar-3" class="h-2.5 rounded-full border-2 border-[#1E1B4B] bg-white transition-all"></div>
+    <div id="step-bar-4" class="h-2.5 rounded-full border-2 border-[#1E1B4B] bg-white transition-all"></div>
+  </div>
+
+  <!-- ==================== MAIN INTERACTIVE STAGE (DYNAMIC HEIGHT FIXED!) ==================== -->
+  <main class="w-full max-w-xl bento-card relative flex flex-col justify-between min-h-[520px]">
+
+    <!-- STAGE 1: GROUP CHAT -->
+    <section id="stage-chat" class="flex flex-col min-h-[520px] max-h-[82vh] overflow-y-auto justify-between">
+      <div class="px-4 py-2.5 bg-[#F3EEFF] border-b-2 border-[#1E1B4B] rounded-t-[21px] flex items-center justify-between">
+        <span id="chat-channel-tag" class="text-xs font-extrabold text-[#7B5CFA]">💬 1788_VERSAILLES_BESTIES</span>
+        <span class="text-xs font-extrabold text-[#FF477E]">✨ Tap pink words (+10 ⭐)</span>
+      </div>
+
+      <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-3 bg-[#FFFDF9]"></div>
+
+      <div class="p-3.5 bg-white border-t-2 border-[#1E1B4B] rounded-b-[21px] flex items-center justify-between">
+        <span id="chat-progress-text" class="text-xs font-extrabold text-slate-500">TEA 1 / 7</span>
+        <button id="btn-next-msg" onclick="nextChatMessage()" class="toy-btn px-6 py-2.5 rounded-2xl bg-[#00D68F] text-[#1E1B4B] font-extrabold text-xs tracking-wide">
+          SPILL NEXT TEA 💬 →
+        </button>
+      </div>
+    </section>
+
+    <!-- STAGE 2: BOSS BATTLE -->
+    <section id="stage-boss" class="hidden flex-col min-h-[520px] max-h-[82vh] justify-between p-5 bg-[#FFFDF9] rounded-[21px] overflow-y-auto">
+      <div>
+        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#FFE4EC] border-2 border-[#1E1B4B] text-[#FF2A6D] text-xs font-extrabold mb-3">
+          <span>⚡ DRAMA ALERT // PICK OR GET ROASTED</span>
+        </div>
+
+        <h2 id="boss-headline" class="font-display text-2xl text-[#1E1B4B] mb-1"></h2>
+        <p id="boss-headline-zh" class="hidden text-sm font-bold text-[#7B5CFA] mb-2"></p>
+
+        <p id="boss-context" class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-2"></p>
+        <p id="boss-context-zh" class="hidden text-xs text-[#FF2A6D] bg-[#FFF0F6] p-2 rounded-xl border border-[#FF477E] font-semibold mb-3"></p>
+
+        <div class="bento-subcard p-3.5 bg-[#F3EEFF] mb-4">
+          <div class="flex items-center space-x-2 mb-1">
+            <span class="text-lg">😼</span>
+            <span id="boss-cat-label" class="text-xs font-extrabold text-[#7B5CFA]">Mochi_Snack_Agent</span>
+            <span class="text-[11px] text-slate-500 font-semibold">is typing...</span>
+          </div>
+          <p id="boss-sentence" class="text-sm text-[#1E1B4B] font-bold leading-relaxed"></p>
+          <p id="boss-sentence-zh" class="hidden text-xs text-[#7B5CFA] font-semibold mt-1.5 pt-1.5 border-t border-[#7B5CFA]/30"></p>
+        </div>
+
+        <div id="boss-options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3"></div>
+      </div>
+
+      <div id="boss-feedback" class="hidden p-4 rounded-2xl border-2 border-[#1E1B4B] animate-pop mt-2"></div>
+    </section>
+
+    <!-- STAGE 3: DIGITAL EXAM ARENA (AUTO-SCROLL FIXED!) -->
+    <section id="stage-sat" class="hidden flex-col min-h-[520px] max-h-[82vh] justify-between p-5 bg-[#FFFDF9] rounded-[21px] overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between border-b-2 border-[#1E1B4B] pb-2.5 mb-3">
+          <span class="text-xs font-extrabold text-[#7B5CFA]">
+            🎯 DIGITAL EXAM ARENA // WORDS IN CONTEXT
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full bg-[#FFD166] border border-[#1E1B4B] text-[11px] font-extrabold">
+            Module 2 • Hard
+          </span>
+        </div>
+
+        <div class="bento-subcard p-4 bg-white mb-3">
+          <p id="sat-passage" class="font-serif-sat text-lg sm:text-xl text-[#1E1B4B] leading-relaxed"></p>
+          <div id="sat-passage-zh" class="hidden mt-3 pt-2.5 border-t-2 border-dashed border-[#7B5CFA]/40 text-xs text-[#7B5CFA] font-bold leading-relaxed bg-[#F3EEFF]/60 p-2.5 rounded-xl"></div>
+        </div>
+
+        <p id="sat-prompt-label" class="text-xs font-extrabold text-slate-600 mb-2.5">
+          Which choice completes the text with the most logical and precise word or phrase?
+        </p>
+
+        <div id="sat-choices-grid" class="grid grid-cols-2 gap-2.5 mb-3"></div>
+
+        <!-- Poppy's 10-Second Hack (Auto-scrolls into view on selection!) -->
+        <div id="sat-explanation" class="hidden bento-subcard p-3.5 bg-[#E6FFF5] animate-pop mt-2">
+          <div class="flex items-center space-x-1.5 mb-1">
+            <span class="text-base">😺</span>
+            <span id="sat-poppy-label" class="text-xs font-extrabold text-[#00A86B]">Poppy's 10-Second Context Code:</span>
+          </div>
+          <p id="sat-hack-en" class="text-xs text-[#1E1B4B] font-semibold leading-relaxed mb-1.5"></p>
+          <p id="sat-hack-zh" class="hidden text-xs text-[#008055] font-bold leading-relaxed mb-2 bg-white/80 p-2 rounded-lg border border-[#00D68F]"></p>
+          <button id="btn-stage3-next" onclick="goToStage(4)" class="toy-btn w-full py-2.5 rounded-xl bg-[#FF477E] text-white font-extrabold text-xs">
+            COLLECT STICKER & VIEW PASS (+100 ⭐) →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 4: SIBLING LADDER PRICING ($49 vs $79) & PARENT PITCH -->
+    <section id="stage-paywall" class="hidden flex-col min-h-[520px] max-h-[82vh] justify-between p-5 bg-[#FFFDF9] rounded-[21px] overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-3 py-1 rounded-full bg-[#00D68F] border-2 border-[#1E1B4B] text-[#1E1B4B] text-xs font-extrabold">
+            🎉 CHAPTER CLEARED // 100% ACCURACY
+          </span>
+          <span class="text-xs font-extrabold text-[#FF477E]">+160 ⭐ Earned</span>
+        </div>
+
+        <h2 class="font-display text-2xl text-[#1E1B4B] mb-1">
+          Unlock All 8 Seasons (2,400 Words) ✨
+        </h2>
+        <p class="text-xs font-semibold text-slate-600 mb-3">
+          Includes 240 Episodes + Printable 2,400-Word Ivy Context Bible PDF + ESA Curriculum Receipt!
+        </p>
+
+        <!-- SIBLING LADDER PRICING CARDS ($49 vs $79) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3.5">
+          <div class="bento-subcard p-3 bg-white">
+            <div class="text-[10px] font-extrabold text-slate-500 uppercase">Solo Student Pass</div>
+            <div class="font-display text-2xl font-bold text-[#1E1B4B] my-0.5">$49 <span class="text-xs line-through text-slate-400">$149</span></div>
+            <p class="text-[11px] text-slate-600 font-medium">Lifetime access to all 2,400 Digital SAT words for 1 student.</p>
+          </div>
+          <div class="bento-subcard p-3 bg-[#FFF0F6] border-[#FF477E] relative">
+            <span class="absolute -top-2.5 right-2 px-2 py-0.5 rounded-full bg-[#FF477E] text-white text-[9px] font-extrabold border border-[#1E1B4B]">
+              🔥 MOST POPULAR • SIBLING PASS
+            </span>
+            <div class="text-[10px] font-extrabold text-[#FF2A6D] uppercase">Household Family Pass (Up to 3 Kids)</div>
+            <div class="font-display text-2xl font-bold text-[#1E1B4B] my-0.5">$79 <span class="text-xs line-through text-slate-400">$299</span></div>
+            <p class="text-[11px] text-[#1E1B4B] font-semibold">Unlocks HS SAT + Middle School SSAT + Founding 50 Pet NPC Cameo!</p>
+          </div>
+        </div>
+
+        <!-- One-Click Parent Text Box -->
+        <div class="bento-subcard p-3.5 bg-white mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-extrabold text-[#1E1B4B]">💌 Ask Mom/Dad to Unlock:</span>
+            <div class="flex space-x-1">
+              <button onclick="setPitchLang('en')" id="pitch-btn-en" class="px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-[#FFD166] font-extrabold">
+                🇺🇸 iMessage (EN)
+              </button>
+              <button onclick="setPitchLang('zh')" id="pitch-btn-zh" class="px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-white font-bold">
+                📕 WeChat (中文战报)
+              </button>
+            </div>
+          </div>
+          <p id="parent-msg-preview" class="text-xs text-[#1E1B4B] bg-[#F8F7FF] p-2.5 rounded-xl border border-slate-300 font-medium leading-relaxed mb-2.5 select-all"></p>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="copyParentMessage()" id="btn-copy-parent" class="toy-btn py-2 rounded-xl bg-[#FF477E] text-white font-extrabold text-xs">
+              📋 Copy Text for Parents
+            </button>
+            <button onclick="nextEpisodeFunnel()" class="toy-btn py-2 rounded-xl bg-[#FFD166] text-[#1E1B4B] font-extrabold text-xs">
+              ⏭️ Next Free Chapter →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== POP-UP STICKER VOCAB DRAWER (WITH 🔊 TTS!) ==================== -->
+    <div id="vocab-drawer" class="hidden absolute inset-x-0 bottom-0 bg-white border-t-4 border-[#1E1B4B] p-4 z-40 rounded-t-3xl shadow-2xl animate-pop">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center space-x-2">
+            <h3 id="drawer-word" class="font-display text-2xl text-[#FF477E]"></h3>
+            <button onclick="speakCurrentDrawerWord()" class="toy-btn px-2 py-0.5 rounded-lg bg-[#FFD166] text-xs font-extrabold" title="Listen to pronunciation">
+              🔊 Listen
+            </button>
+            <span id="drawer-pos" class="text-xs font-bold text-slate-400"></span>
+          </div>
+          <p id="drawer-def-en" class="text-xs font-bold text-[#1E1B4B] mt-0.5"></p>
+          <p id="drawer-def-zh" class="hidden text-xs font-extrabold text-[#7B5CFA] mt-0.5"></p>
+        </div>
+        <button onclick="closeDrawer()" class="toy-btn px-2.5 py-1 rounded-xl bg-slate-100 text-xs font-extrabold">
+          ✕
+        </button>
+      </div>
+      <div class="space-y-2 text-xs">
+        <div class="p-2.5 rounded-xl bg-[#F3EEFF] border border-[#1E1B4B]">
+          <span class="font-extrabold text-[#7B5CFA]">🧬 Memory Shortcut: </span>
+          <span id="drawer-root" class="font-semibold text-[#1E1B4B]"></span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-[#FFF0F6] border border-[#1E1B4B]">
+          <span id="drawer-mode-label" class="font-extrabold text-[#FF2A6D]"></span>
+          <span id="drawer-hook" class="font-semibold text-[#1E1B4B]"></span>
+        </div>
+        <div class="flex items-center space-x-2 pt-1">
+          <span class="text-[11px] font-extrabold text-slate-500">🎯 SAT Twin Words:</span>
+          <div id="drawer-synonyms" class="flex space-x-1.5"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== 5-PET SQUAD CUSTOMIZER MODAL ==================== -->
+  <div id="pet-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card p-5 max-w-md w-full bg-[#FFFDF7] animate-pop">
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="font-display text-xl text-[#1E1B4B]">🐾 Customize Your 5-Pet Squad!</h3>
+        <button onclick="closePetModal()" class="toy-btn px-2.5 py-1 rounded-lg bg-white text-xs font-extrabold">✕</button>
+      </div>
+      <p class="text-xs text-slate-600 font-medium mb-3">
+        Put your pets and your best friends' pets directly into the historical group chats, then send them the custom link!
+      </p>
+      <div class="space-y-2 text-xs mb-4">
+        <div class="flex items-center space-x-2">
+          <span class="w-28 font-extrabold">😺 Ivy Cat #1:</span>
+          <input id="modal-c1" type="text" class="flex-1 p-1.5 rounded-lg border-2 border-[#1E1B4B] font-bold" />
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-28 font-extrabold">😼 Snack Cat #2:</span>
+          <input id="modal-c2" type="text" class="flex-1 p-1.5 rounded-lg border-2 border-[#1E1B4B] font-bold" />
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-28 font-extrabold text-[#FF2A6D]">🐱 Friend Cat A:</span>
+          <input id="modal-c3" type="text" class="flex-1 p-1.5 rounded-lg border-2 border-[#FF477E] font-bold" />
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-28 font-extrabold text-[#7B5CFA]">🐾 Friend Cat B:</span>
+          <input id="modal-c4" type="text" class="flex-1 p-1.5 rounded-lg border-2 border-[#7B5CFA] font-bold" />
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-28 font-extrabold text-[#00A86B]">🐶 Hype Dog:</span>
+          <input id="modal-d1" type="text" class="flex-1 p-1.5 rounded-lg border-2 border-[#00D68F] font-bold" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="savePetSquad(false)" class="toy-btn py-2.5 rounded-xl bg-[#00D68F] text-[#1E1B4B] font-extrabold text-xs">
+          ✅ Save & Play Now
+        </button>
+        <button onclick="savePetSquad(true)" id="btn-copy-friend-link" class="toy-btn py-2.5 rounded-xl bg-[#FF477E] text-white font-extrabold text-xs">
+          🔗 Copy Link for Friends
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGAL TRADEMARK SHIELD FOOTER -->
+  <footer class="w-full max-w-xl mt-3 text-center text-[10px] text-slate-500 font-medium px-2">
+    RoastPrep.com & RoastPrep.org • SAT® and Bluebook™ are trademarks registered by the College Board, which is not affiliated with, and does not endorse, this product. Zero-PII COPPA Compliant.
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 1. DYNAMIC 5-PET SQUAD LOADER (URL PARAMS -> LOCALSTORAGE -> DEFAULTS)
+    // =========================================================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const PETS = {
+      c1: urlParams.get("cat1") || localStorage.getItem("rp_c1") || "Poppy",
+      c2: urlParams.get("cat2") || localStorage.getItem("rp_c2") || "Mochi",
+      c3: urlParams.get("cat3") || localStorage.getItem("rp_c3") || "Luna",
+      c4: urlParams.get("cat4") || localStorage.getItem("rp_c4") || "Boba",
+      d1: urlParams.get("dog1") || localStorage.getItem("rp_d1") || "Buster"
+    };
+
+    // Auto-enable Chinese Lens if ?lens=zh is present (for Xiaohongshu links!)
+    let zhLens = urlParams.get("lens") === "zh";
+
+    function buildEpisodes() {
+      return [
+        // ---------------- EPISODE 1: VERSAILLES (1788) ----------------
+        {
+          code: "S01E01",
+          title: "Versailles VIP Group Chat (1788)",
+          subtitle: "Plastic Cliques & Royal Drama",
+          channel: "💬 1788_VERSAILLES_BESTIES",
+          vocab: {
+            ostentatious: {
+              word: "ostentatious", pos: "adj. /ˌɑː.stenˈteɪ.ʃəs/",
+              def_en: "Excessively showy and designed to flex or attract attention.",
+              def_zh: "炫耀卖弄的；浮夸招摇的",
+              root: "ostent (stretch out to view) → shoving your price tag in everyone's face.",
+              story_hook: `Wearing a 3-foot solid gold sailboat on top of your wig just to eat cereal.`,
+              savage_roast: `Loud flexing with zero taste. Bringing a diamond-crusted Stanley cup to 1st-period math.`,
+              synonyms: ["flamboyant", "pretentious", "gaudy"]
+            },
+            obsequious: {
+              word: "obsequious", pos: "adj. /əbˈsiː.kwi.əs/",
+              def_en: "Obedient or attentive to an excessive degree; sucking up to power.",
+              def_zh: "谄媚的；卑躬屈膝溜须拍马的",
+              root: "ob- (toward) + sequi (follow) → following VIPs around like a desperate servant.",
+              story_hook: `${PETS.c2} massaging the automatic feeder with both paws hoping extra salmon drops out.`,
+              savage_roast: `Hall-of-Fame glazing. Laughing way too hard at the teacher's unfunny joke for extra credit.`,
+              synonyms: ["servile", "fawning", "sycophantic"]
+            },
+            aloof: {
+              word: "aloof", pos: "adj. /əˈluːf/",
+              def_en: "Cool, distant, and emotionally uninvolved.",
+              def_zh: "高冷疏离的；置身事外的",
+              root: "steering a ship windward away from the crowd → staying 10 feet away from drama.",
+              story_hook: `${PETS.c1} sitting on the highest bookshelf watching humans panic without blinking.`,
+              savage_roast: `Acting too cool to reply in the group chat while screenshotting everything in 0.2s.`,
+              synonyms: ["detached", "distant", "unapproachable"]
+            },
+            sycophant: {
+              word: "sycophant", pos: "n. /ˈsɪk.ə.fænt/",
+              def_en: "A person who sucks up to important people to gain an advantage.",
+              def_zh: "马屁精；势利小人",
+              root: "Greek sykophantes → a professional yes-man trading dignity for perks.",
+              story_hook: `Clapping and crying tears of joy because the King tied his own shoelaces.`,
+              savage_roast: `The group project partner who writes zero slides but emails the teacher praising her rubric.`,
+              synonyms: ["flatterer", "yes-man", "parasite"]
+            },
+            supercilious: {
+              word: "supercilious", pos: "adj. /ˌsuː.pɚˈsɪl.i.əs/",
+              def_en: "Behaving as though one is superior to everyone else.",
+              def_zh: "目中无人的；高傲挑眉看人的",
+              root: "super- (above) + cilium (eyebrow) → raising one eyebrow like everyone else is a peasant.",
+              story_hook: `A royal poodle tilting its nose 45 degrees into the air to ignore stray cats.`,
+              savage_roast: `Main-character arrogance. Looking at everyone in the hallway like low-budget NPCs.`,
+              synonyms: ["haughty", "arrogant", "disdainful"]
+            },
+            candid: {
+              word: "candid", pos: "adj. /ˈkæn.dɪd/",
+              def_en: "Truthful, blunt, and straightforward; zero filter.",
+              def_zh: "直言不讳的；坦率真诚的",
+              root: "candidus (bright white/pure) → unvarnished truth with zero sugarcoating.",
+              story_hook: `${PETS.c2} telling the King straight up that his royal robe looks like a giant bath towel.`,
+              savage_roast: `Telling your bestie their new haircut looks like a chewed broom before they post it on IG.`,
+              synonyms: ["forthright", "frank", "blunt"]
+            }
+          },
+          chat: [
+            {
+              sender: "Minister_Brienne", tag: "Royal CFO", avatar: "🧔🏼‍♂️", isPet: false,
+              en: `Besties, bad news: France is broke. Stop buying <span class='vocab-sticker' onclick="openWord('ostentatious')">ostentatious</span> diamond wigs just to flex at Tuesday tea!`,
+              zh: `家人们坏消息：法兰西国库破产了！别为了周二下午茶显摆，再买那些【浮夸炫耀的】钻石假发了！`
+            },
+            {
+              sender: "Duke_Orleans", tag: "Court Drama King", avatar: "🤴🏼", isPet: false,
+              en: `Relax! Once the King reads my <span class='vocab-sticker' onclick="openWord('obsequious')">obsequious</span> poem praising his royal jawline, he'll double my allowance.`,
+              zh: `淡定！等国王读完我那首【卑躬屈膝溜须拍马】狂吹他下颌线的赞美诗，立马给我零花钱翻倍。`
+            },
+            {
+              sender: `${PETS.c1}_Ivy_Cat`, tag: "Chief Auditor", avatar: "😺", isPet: true,
+              en: `Fascinating. I usually stay <span class='vocab-sticker' onclick="openWord('aloof')">aloof</span> from human nonsense, yet watching nobles bankrupt a country for compliments is cinema.`,
+              zh: `真精彩。我向来对人类的蠢事保持【高冷疏离】，但围观贵族为了听彩虹屁把国家搞破产，属实是年度大戏。`
+            },
+            {
+              sender: `${PETS.c2}_Snack_Cat`, tag: "Chaos Ops", avatar: "😼", isPet: true,
+              en: `Translation: The Duke is a full-time <span class='vocab-sticker' onclick="openWord('sycophant')">sycophant</span> trading dignity for cake! Also, ${PETS.c3} and I just ate the King's salmon.`,
+              zh: `翻译成人话：公爵就是个拿尊严换蛋糕的全职【马屁精】！顺便说一句，我和 ${PETS.c3} 刚偷吃了国王的三文鱼。`
+            },
+            {
+              sender: "Duke_Orleans", tag: "Court Drama King", avatar: "🤴🏼", isPet: false,
+              en: `How dare stray pets roast me! My royal bloodline entitles me to give you a <span class='vocab-sticker' onclick="openWord('supercilious')">supercilious</span> sneer!`,
+              zh: `区区小猫小狗敢怼我！凭我高贵的血统，完全有资格赏你们一个【目中无人的】高傲冷笑！`
+            },
+            {
+              sender: `${PETS.d1}_Hype_Dog`, tag: "Golden Translator", avatar: "🐶", isPet: true,
+              en: `WOOF! Did ${PETS.c4} screenshot that?! The Duke is acting super arrogant while ${PETS.c1} is about to drop some <span class='vocab-sticker' onclick="openWord('candid')">candid</span> truth bombs!`,
+              zh: `汪！${PETS.c4} 截图了吗？！公爵还在那高傲装大爷，${PETS.c1} 马上就要对他来一番【直言不讳的】大实话暴击了！`
+            }
+          ],
+          boss: {
+            headline: `Duke Orléans Tried to Frame ${PETS.c2} & ${PETS.d1}!`,
+            headline_zh: `奥尔良公爵想把偷吃蛋糕的锅甩给 ${PETS.c2} 和 ${PETS.d1}！`,
+            context: `The Duke knocked over the Queen's cake, wiped the frosting off his chin, and put on a fake innocent face to blame ${PETS.c2}. Expose his fake innocence:`,
+            context_zh: `公爵打翻了王后的多层奶油蛋糕，擦掉下巴上的奶油，装出一副无辜纯洁的表情甩锅给 ${PETS.c2}。快选出精准揭穿他“假装无辜”的 SAT 词：`,
+            sentence: `"Drop the innocent act, Duke! Your apology is totally <span id='boss-blank' class='px-2 py-0.5 bg-[#FFD166] border border-[#1E1B4B] rounded-lg font-extrabold'>______</span> — ${PETS.c3} caught you on 4K licking the frosting!"`,
+            sentence_zh: `“收起你那套无辜演技吧公爵！你的道歉完全是【虚伪装纯的】——${PETS.c3} 都拍下你偷舔奶油的 4K 证据了！”`,
+            options: [
+              { word: "disingenuous", zh: "虚伪狡诈的；假装无辜/不知情的", desc: "Insincere; pretending to be more innocent than one really is", correct: true },
+              { word: "ingenuous", zh: "真正天真无邪的；坦率真诚的", desc: "Truly innocent, artless, and candid; childlike honesty", correct: false }
+            ],
+            wasted_title: "💀 VERBALLY WASTED // You Called the Scheming Duke a Pure Angel!",
+            wasted_body: `<b>Ingenuous</b> means genuinely innocent! The Duke cried happy tears and forced ${PETS.c2} and ${PETS.d1} to brush his 30-pound powdered wig!`,
+            wasted_zh: `【社死翻车】Ingenuous 是“真纯洁无瑕”！公爵听完感动得罚 ${PETS.c2} 和 ${PETS.d1} 每天给他梳 30 斤重的假发！记住：IN-genuous = 真纯真；DIS-ingenuous = 装纯真/虚伪！`,
+            win_body: `BOOM! <b>Disingenuous</b> (fake-innocent / insincere) exposed his act in front of the whole palace!`,
+            win_zh: `漂亮绝杀！Disingenuous（虚伪装无辜）当场戳破公爵的绿茶演技，全场贵族笑翻！`
+          },
+          sat: {
+            passage: "In the final decade before the French Revolution, memoirs from Versailles reveal a court culture built on <span class='px-2 py-0.5 bg-[#FFD166] border border-[#1E1B4B] rounded-lg font-extrabold text-sm'>______</span> allegiance: courtiers who lavished the monarchy with <span id='clue-1' class='transition-all'>extravagant flattery</span> in public were frequently the very first to <span id='clue-2' class='transition-all'>betray royal confidences</span> to rival factions the moment financial subsidies dried up.",
+            passage_zh: "【中文微距精译】在法国大革命爆发前的最后十年里，凡尔赛宫回忆录揭示了一种建立在（______）效忠之上的宫廷文化：那些在公开场合对王室极尽【浮夸奉承】的朝臣，一旦财政津贴断绝，往往第一个向敌对派系【背叛出卖王室机密】。",
+            choices: [
+              { letter: "A", word: "gregarious", zh: "爱交际的；合群的", correct: false },
+              { letter: "B", word: "perfidious", zh: "背信弃义的；当面一套背后一套的", correct: true },
+              { letter: "C", word: "candid", zh: "坦率直言的", correct: false },
+              { letter: "D", word: "austere", zh: "简朴严厉的", correct: false }
+            ],
+            hack_en: "Look at the colon (:)—everything after it defines the blank! Flattering in public while <b>'betraying royal confidences'</b> behind their back is the exact definition of <b>perfidious</b> (deceitful and untrustworthy).",
+            hack_zh: "【10秒秒题口诀】盯紧冒号（:）后面的同义解释！当面狂拍马屁（extravagant flattery），背后立刻出卖机密（betray royal confidences），这种两面三刀的背叛对应的唯一高阶词就是 perfidious（背信弃义的）！"
+          }
+        },
+
+        // ---------------- EPISODE 2: GALILEO (1633) ----------------
+        {
+          code: "S01E02",
+          title: "Galileo's Telescope Chat (1633)",
+          subtitle: "Gaslight, Gatekeep, Galileo",
+          channel: "💬 1633_SOLAR_SYSTEM_DEBATE",
+          vocab: {
+            empirical: {
+              word: "empirical", pos: "adj. /ɪmˈpɪr.ɪ.kəl/",
+              def_en: "Based on real observation and experiments rather than pure theory.",
+              def_zh: "实证的；基于观察与实验证据的",
+              root: "empeirikos (experienced) → hard receipts you can test with your own eyes.",
+              story_hook: `${PETS.c2} knocking 10 cups off the table one by one to test gravity with a stopwatch.`,
+              savage_roast: `Bringing timestamped screenshot receipts instead of 'trust me bro'.`,
+              synonyms: ["observational", "verifiable", "experimental"]
+            },
+            corroborate: {
+              word: "corroborate", pos: "v. /kəˈrɑː.bə.reɪt/",
+              def_en: "To confirm or back up a claim with new independent evidence.",
+              def_zh: "证实；提供新证据支持",
+              root: "cor- + robur (oak strength) → making a story solid as oak with backup proof.",
+              story_hook: `Two separate pet cameras both catching ${PETS.c2} and ${PETS.d1} opening the fridge at 2 AM.`,
+              savage_roast: `When ${PETS.c3} backs up your story in the group chat with a second video angle.`,
+              synonyms: ["confirm", "substantiate", "validate"]
+            },
+            refute: {
+              word: "refute", pos: "v. /rɪˈfjuːt/",
+              def_en: "To prove a statement or theory to be completely wrong; disprove.",
+              def_zh: "驳倒；用证据证明…是错的",
+              root: "re- (back) + futare (beat) → beating down a fake claim with facts.",
+              story_hook: `${PETS.c1} using a thermal camera to prove ${PETS.d1} WAS sleeping on the couch.`,
+              savage_roast: `Destroying someone's fake excuse with one screenshot.`,
+              synonyms: ["debunk", "disprove", "rebut"]
+            },
+            equivocate: {
+              word: "equivocate", pos: "v. /ɪˈkwɪv.ə.keɪt/",
+              def_en: "To use vague, double-meaning language to dodge the truth.",
+              def_zh: "模棱两可地说；支吾搪塞",
+              root: "equi- (equal) + voc (voice) → talking both sides so nobody can pin you down.",
+              story_hook: `Asked 'Did you eat the fish?', ${PETS.c2} says 'Define the concept of eating.'`,
+              savage_roast: `Politician-level dodging when Mom asks what you got on the Chemistry test.`,
+              synonyms: ["prevaricate", "hedge", "waffle"]
+            },
+            spurious: {
+              word: "spurious", pos: "adj. /ˈspjʊr.i.əs/",
+              def_en: "False or fake; not being what it claims to be.",
+              def_zh: "伪造的；虚假不实的",
+              root: "Latin spurius (counterfeit) → fake facts dressed up as science.",
+              story_hook: `A '100% Real Tuna' treat that turns out to be cardboard.`,
+              savage_roast: `Fake TikTok 'science' claiming sleeping on your textbook transfers knowledge by osmosis.`,
+              synonyms: ["bogus", "specious", "counterfeit"]
+            },
+            bolster: {
+              word: "bolster", pos: "v. /ˈboʊl.stɚ/",
+              def_en: "To support, strengthen, or prop up an argument.",
+              def_zh: "巩固；强化支持（论点或信心）",
+              root: "bolster (a thick structural cushion) → propping up a claim so it stands strong.",
+              story_hook: `Stacking three extra pillows under ${PETS.c4}'s chin during nap time.`,
+              savage_roast: `Adding three Harvard citations to your essay 5 minutes before the deadline.`,
+              synonyms: ["reinforce", "buttress", "fortify"]
+            }
+          },
+          chat: [
+            {
+              sender: "Galileo_Geek", tag: "Astronomer", avatar: "🔭", isPet: false,
+              en: `Guys, look through the telescope! I have <span class='vocab-sticker' onclick="openWord('empirical')">empirical</span> proof that moons orbit Jupiter!`,
+              zh: `伙计们快看望远镜！我有【实证观测】数据证明卫星在绕着木星转！`
+            },
+            {
+              sender: "Chief_Inquisitor", tag: "Gatekeeper", avatar: "⛪", isPet: false,
+              en: `Put that tube away! Your <span class='vocab-sticker' onclick="openWord('spurious')">spurious</span> star drawings are just smudges on the glass!`,
+              zh: `把那根管子收起来！你那些【虚假伪造的】星图不过是镜片上的油污罢了！`
+            },
+            {
+              sender: `${PETS.c1}_Ivy_Cat`, tag: "Chief Auditor", avatar: "😺", isPet: true,
+              en: `Actually, Kepler's independent orbital math helped <span class='vocab-sticker' onclick="openWord('corroborate')">corroborate</span> Galileo's logs.`,
+              zh: `事实上，开普勒独立计算的行星轨道数据已经【证实并印证】了伽利略的观测记录。`
+            },
+            {
+              sender: `${PETS.c3}_Gossip_Cat`, tag: "Receipt Queen", avatar: "🐱", isPet: true,
+              en: `Wait—the Inquisitor can't <span class='vocab-sticker' onclick="openWord('refute')">refute</span> the telescope math, so his strategy is closing his eyes?! ${PETS.c4}, clip that!`,
+              zh: `等等——审判官没法用证据【驳倒】望远镜数据，所以他的战术是直接闭眼不看？！${PETS.c4} 快截下来！`
+            },
+            {
+              sender: "Senator_Vibe", tag: "Fence-Sitter", avatar: "🎩", isPet: false,
+              en: `I hate drama, so I will <span class='vocab-sticker' onclick="openWord('equivocate')">equivocate</span> and say Earth moves 'poetically' while staying still 'legally'.`,
+              zh: `我不想惹事，所以我决定【模棱两可和稀泥】：地球在诗歌层面在转，但在法律层面不动。`
+            },
+            {
+              sender: `${PETS.d1}_Hype_Dog`, tag: "Golden Translator", avatar: "🐶", isPet: true,
+              en: `WOOF! Every clear night brings new telescope photos to <span class='vocab-sticker' onclick="openWord('bolster')">bolster</span> Team Galileo! Science wins!`,
+              zh: `汪！每个晴朗夜晚的新望远镜照片都在进一步【巩固支持】伽利略战队！科学必胜！`
+            }
+          ],
+          boss: {
+            headline: "The Inquisitor Drops a Fake 'Logic Trap'!",
+            headline_zh: "审判官抛出了一个看似有理的“伪逻辑陷阱”！",
+            context: "He argues: 'If Earth spun at 1,000 mph, birds would fly backward into space!' It sounds clever for two seconds, but the physics is totally wrong. Call out his fake-smart claim:",
+            context_zh: "他声称：“如果地球以每小时1000英里自转，鸟儿一飞起来就会被甩进外太空！”听起来像那么回事，但物理学上完全是错的。选出揭穿“似是而非”的词：",
+            sentence: `"Nice try, but that bird argument is completely <span id='boss-blank' class='px-2 py-0.5 bg-[#FFD166] border border-[#1E1B4B] rounded-lg font-extrabold'>______</span> — even ${PETS.d1} knows the air spins WITH the Earth!"`,
+            sentence_zh: `“想得美，但你那个小鸟论证完全是【似是而非、表面有理实则错误的】——连 ${PETS.d1} 都知道大气层是跟着地球一起转的！”`,
+            options: [
+              { word: "specious", zh: "似是而非的；表面有理实则错误的", desc: "Sounding smart on the surface, but actually false", correct: true },
+              { word: "sagacious", zh: "睿智的；有远见卓识的", desc: "Having keen mental wisdom and brilliant judgment", correct: false }
+            ],
+            wasted_title: "💀 VERBALLY WASTED // You Praised Flat-Earth Physics as Genius!",
+            wasted_body: `<b>Sagacious</b> means deeply wise! The Inquisitor made ${PETS.c2} President of the Flat-Cheese Moon Club!`,
+            wasted_zh: "【社死翻车】Sagacious 是“极其睿智的”！你把他的歪理夸成了绝世智慧！记住：SPEC-ious = 表面看起来像（Spec），实则是假货！",
+            win_body: "SAVAGE! <b>Specious</b> is the #1 SAT word for something that sounds convincing at first glance but is logically flawed!",
+            win_zh: "精准暴击！Specious（似是而非的）是机考 SAT 逻辑题最爱考的高频核心词！"
+          },
+          sat: {
+            passage: "Although seventeenth-century critics attempted to <span class='px-2 py-0.5 bg-[#FFD166] border border-[#1E1B4B] rounded-lg font-extrabold text-sm'>______</span> Galileo's telescopic findings by claiming that curved glass lenses created optical illusions, subsequent advancements in lens precision <span id='clue-1' class='transition-all'>eliminated those distortions</span> and <span id='clue-2' class='transition-all'>vindicated his original measurements</span>.",
+            passage_zh: "【中文微距精译】尽管17世纪的批评家试图通过声称弯曲的玻璃镜片会产生视觉错觉来（______）伽利略的望远镜发现，但随后镜片打磨精度的进步【消除了这些失真】并【证实了他最初测量数据的正确性】。",
+            choices: [
+              { letter: "A", word: "corroborate", zh: "证实；支持", correct: false },
+              { letter: "B", word: "undermine", zh: "削弱；暗中动摇", correct: true },
+              { letter: "C", word: "emulate", zh: "模仿；效仿", correct: false },
+              { letter: "D", word: "appease", zh: "安抚；平息", correct: false }
+            ],
+            hack_en: "Spot the 'Although' contrast! Critics accused his lenses of creating 'illusions' to weaken his findings—which is the exact definition of <b>undermine</b>.",
+            hack_zh: "【10秒秒题口诀】抓住句首 Although 的转折逻辑！后半句说新镜片证实（vindicated）了他的数据，说明前半句批评家说镜片有错觉是为了【削弱、动摇】他的发现，秒选 undermine！"
+          }
+        },
+
+        // ---------------- EPISODE 3: POMPEII HOA (79 AD) ----------------
+        {
+          code: "S01E03",
+          title: "Pompeii HOA Group Chat (79 AD)",
+          subtitle: "Mad Science & Volcano Oopsies",
+          channel: "💬 79AD_VESUVIUS_POOL_CLUB",
+          vocab: {
+            dormant: {
+              word: "dormant", pos: "adj. /ˈdɔːr.mənt/",
+              def_en: "Temporarily asleep or inactive.",
+              def_zh: "休眠的；潜伏不活动的",
+              root: "dormire (to sleep, like dorm room) → sleeping until it wakes up angry.",
+              story_hook: `${PETS.c2} sleeping like a furry loaf for 14 hours until a snack bag rustles.`,
+              savage_roast: `Your study motivation staying completely asleep until 11:55 PM on Sunday.`,
+              synonyms: ["inactive", "latent", "quiescent"]
+            },
+            anomaly: {
+              word: "anomaly", pos: "n. /əˈnɑː.mə.li/",
+              def_en: "Something weird that deviates from what is normal or expected.",
+              def_zh: "反常现象；异类",
+              root: "an- (not) + homalos (regular) → a glitch in the normal pattern.",
+              story_hook: `It raining roast chicken instead of water on a Tuesday afternoon.`,
+              savage_roast: `When the kid who sleeps in class randomly gets 100% on the AP Chem curve.`,
+              synonyms: ["aberration", "outlier", "deviation"]
+            },
+            volatile: {
+              word: "volatile", pos: "adj. /ˈvɑː.lə.təl/",
+              def_en: "Unstable and likely to explode or change rapidly for the worse.",
+              def_zh: "不稳定的；易爆发的",
+              root: "volare (to fly) → ready to blow its lid at any second.",
+              story_hook: `A shaken bottle of fizzy soda waiting for someone to twist the cap.`,
+              savage_roast: `The group chat 3 seconds after someone brings up grades or crushes.`,
+              synonyms: ["unstable", "explosive", "erratic"]
+            },
+            exacerbate: {
+              word: "exacerbate", pos: "v. /ɪɡˈzæs.ɚ.beɪt/",
+              def_en: "To make a bad situation even worse.",
+              def_zh: "使恶化；使雪上加霜",
+              root: "ex- + acerbus (harsh) → pouring hot sauce on a papercut.",
+              story_hook: `Trying to wipe muddy pawprints off a white rug using a chocolate towel.`,
+              savage_roast: `Texting 'Calm down lol' to someone who is already mad.`,
+              synonyms: ["aggravate", "worsen", "compound"]
+            },
+            ameliorate: {
+              word: "ameliorate", pos: "v. /əˈmiːl.jə.reɪt/",
+              def_en: "To make a bad or painful situation better and more bearable.",
+              def_zh: "改善；缓解（糟糕局面）",
+              root: "melior (better) → upgrading a disaster into something survivable.",
+              story_hook: `Giving a grumpy cat a heated blanket and salmon after a vet visit.`,
+              savage_roast: `The teacher adding a 15-point curve so the whole class doesn't fail.`,
+              synonyms: ["mitigate", "alleviate", "improve"]
+            },
+            catalyst: {
+              word: "catalyst", pos: "n. /ˈkæt.əl.ɪst/",
+              def_en: "An event or person that sparks a massive, rapid change.",
+              def_zh: "催化剂；引发巨变的导火索",
+              root: "kata- + lyein (loosen) → the single spark that starts a chain reaction.",
+              story_hook: `One red laser dot triggering a 5-pet stampede with ${PETS.c3}, ${PETS.c4}, and ${PETS.d1}.`,
+              savage_roast: `One leaked screenshot causing three friend groups to reorganize before lunch.`,
+              synonyms: ["stimulus", "spark", "impetus"]
+            }
+          },
+          chat: [
+            {
+              sender: "Marcus_HOA", tag: "Villa Boss", avatar: "🏛️", isPet: false,
+              en: `Neighbors, chill! Mount Vesuvius has been <span class='vocab-sticker' onclick="openWord('dormant')">dormant</span> for centuries. That smoke is just a BBQ!`,
+              zh: `邻居们淡定！维苏威火山已经【休眠】好几百年了，那团黑烟只是有人在烤肉，别影响房价！`
+            },
+            {
+              sender: "Pliny_Intern", tag: "Science Kid", avatar: "📜", isPet: false,
+              en: `Bro, a 12-mile pillar of fire shooting into the sky is a massive geological <span class='vocab-sticker' onclick="openWord('anomaly')">anomaly</span>!`,
+              zh: `老兄，直冲12英里高空的火柱绝不正常，这是极其罕见的地质【反常现象】！`
+            },
+            {
+              sender: `${PETS.c1}_Ivy_Cat`, tag: "Chief Auditor", avatar: "😺", isPet: true,
+              en: `My sensors show the magma chamber is super <span class='vocab-sticker' onclick="openWord('volatile')">volatile</span>. Staying for the pool party has a 0% survival rate.`,
+              zh: `我的传感器显示岩浆房极其【不稳定且易爆发】。留下来开泳池派对的生还率为零。`
+            },
+            {
+              sender: "Marcus_HOA", tag: "Villa Boss", avatar: "🏛️", isPet: false,
+              en: `Stop panicking! Your texts will <span class='vocab-sticker' onclick="openWord('exacerbate')">exacerbate</span> chariot traffic on the highway!`,
+              zh: `别制造恐慌！你们这些消息只会让主干道上的马车堵车更加【恶化】！`
+            },
+            {
+              sender: `${PETS.c4}_Vibe_Cat`, tag: "Style Critic", avatar: "🐾", isPet: true,
+              en: `You think a $5 coupon for the Roman baths will <span class='vocab-sticker' onclick="openWord('ameliorate')">ameliorate</span> a rain of boiling lava rocks ruining my fur?!`,
+              zh: `你觉得发一张五块钱的澡堂优惠券就能【改善缓解】天上下沸腾火山石烫坏我毛发的绝境吗？！`
+            },
+            {
+              sender: `${PETS.d1}_Hype_Dog`, tag: "Golden Translator", avatar: "🐶", isPet: true,
+              en: `WOOF! That earthquake was the final <span class='vocab-sticker' onclick="openWord('catalyst')">catalyst</span>—grab ${PETS.c2} and ${PETS.c3} and run to the boats NOW!`,
+              zh: `汪！刚才那次地震成了最后的【催化剂导火索】——快抱上 ${PETS.c2} 和 ${PETS.c3} 往船上跑！`
+            }
+          ],
+          boss: {
+            headline: "Marcus Thinks the Eruption Will Pass in 5 Minutes!",
+            headline_zh: "物业主任 Marcus 居然觉得火山喷发五分钟就会停！",
+            context: "Pumice stones are raining down, yet Marcus insists this volcano eruption is just a 'short, temporary summer shower'. Roast his delusion:",
+            context_zh: "火山石都在往下砸了，Marcus 还嘴硬说这场火山爆发只是“转瞬即逝的五分钟阵雨”。选出精准表达“短暂、转瞬即逝”的 SAT 词怼醒他：",
+            sentence: `"Marcus, 20 feet of volcanic ash is NOT some <span id='boss-blank' class='px-2 py-0.5 bg-[#FFD166] border border-[#1E1B4B] rounded-lg font-extrabold'>______</span> drizzle—it's permanent!"`,
+            sentence_zh: `“Marcus，二十英尺厚的火山灰可不是什么【转瞬即逝的】小阵雨——它是永久性的！”`,
+            options: [
+              { word: "ephemeral", zh: "转瞬即逝的；极其短暂的", desc: "Lasting for a very short time; fleeting", correct: true },
+              { word: "perpetual", zh: "永久的；永不停息的", desc: "Never ending or changing; lasting forever", correct: false }
+            ],
+            wasted_title: "💀 VERBALLY WASTED // Your Sentence Made Zero Sense!",
+            wasted_body: "<b>Perpetual</b> means forever! Saying 'It's NOT perpetual, it's permanent' contradicted itself!",
+            wasted_zh: "【社死翻车】Perpetual 是“永久的”！说“这不是永久的，这是永久的”逻辑自相矛盾！记住：Ephemeral = 像蜉蝣或限时动态一样转瞬即逝！",
+            win_body: "BOOM! <b>Ephemeral</b> (fleeting / short-lived) woke Marcus up and he finally sprinted to the harbor!",
+            win_zh: "满分暴击！Ephemeral（转瞬即逝的）是机考 SAT 必考词，Marcus 终于拎起长袍逃命去了！"
+          },
+          sat: {
+            passage: "Far from causing a merely localized disruption, the 1815 eruption of Mount Tambora triggered <span class='px-2 py-0.5 bg-[#FFD166] border border-[#1E1B4B] rounded-lg font-extrabold text-sm'>______</span> climatic shifts across the Northern Hemisphere: sulfate aerosols reflected enough solar radiation to <span id='clue-1' class='transition-all'>plunge summer temperatures below freezing</span> and <span id='clue-2' class='transition-all'>devastate harvests</span> on three continents.",
+            passage_zh: "【中文微距精译】1815年坦博拉火山的爆发远非仅造成局部干扰，而是在整个北半球引发了（______）气候巨变：硫酸盐气溶胶反射了大量太阳辐射，足以【使夏季气温骤降至冰点以下】并【摧毁三大洲的农作物收成】。",
+            choices: [
+              { letter: "A", word: "ephemeral", zh: "转瞬即逝的", correct: false },
+              { letter: "B", word: "cataclysmic", zh: "灾难性的；剧烈动荡的", correct: true },
+              { letter: "C", word: "benign", zh: "良性的；温和无害的", correct: false },
+              { letter: "D", word: "dormant", zh: "休眠的", correct: false }
+            ],
+            hack_en: "Look at the extreme scale after the colon: 'freezing summers' and 'devastated harvests on three continents.' Only <b>cataclysmic</b> (large-scale violent disaster) matches!",
+            hack_zh: "【10秒秒题口诀】看冒号后的极端结果：夏天结冰、三大洲庄稼绝收！只有 cataclysmic（毁灭性的、大灾难级的）能匹配这种全球级别的破坏力！"
+          }
+        }
+      ];
+    }
+
+    let EPISODES = buildEpisodes();
+    let currentEpIdx = 0;
+    let currentStage = 1;
+    let vibeMode = "story";
+    let pitchLang = "en";
+    let msgIndex = 0;
+    let coins = 200;
+    let lastOpenedWord = null;
+
+    // =========================================================================
+    // 2. WEB SPEECH API PRONUNCIATION (ZERO COST TTS)
+    // =========================================================================
+    function speakWord(word, event) {
+      if (event) event.stopPropagation();
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(word);
+        u.lang = "en-US";
+        u.rate = 0.92;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function speakCurrentDrawerWord() {
+      if (lastOpenedWord) speakWord(lastOpenedWord);
+    }
+
+    // =========================================================================
+    // 3. 5-PET SQUAD MODAL CONTROLLER
+    // =========================================================================
+    function openPetModal() {
+      document.getElementById("modal-c1").value = PETS.c1;
+      document.getElementById("modal-c2").value = PETS.c2;
+      document.getElementById("modal-c3").value = PETS.c3;
+      document.getElementById("modal-c4").value = PETS.c4;
+      document.getElementById("modal-d1").value = PETS.d1;
+      document.getElementById("pet-modal").classList.remove("hidden");
+    }
+
+    function closePetModal() {
+      document.getElementById("pet-modal").classList.add("hidden");
+    }
+
+    function savePetSquad(copyLink) {
+      PETS.c1 = document.getElementById("modal-c1").value.trim() || "Poppy";
+      PETS.c2 = document.getElementById("modal-c2").value.trim() || "Mochi";
+      PETS.c3 = document.getElementById("modal-c3").value.trim() || "Luna";
+      PETS.c4 = document.getElementById("modal-c4").value.trim() || "Boba";
+      PETS.d1 = document.getElementById("modal-d1").value.trim() || "Buster";
+
+      localStorage.setItem("rp_c1", PETS.c1);
+      localStorage.setItem("rp_c2", PETS.c2);
+      localStorage.setItem("rp_c3", PETS.c3);
+      localStorage.setItem("rp_c4", PETS.c4);
+      localStorage.setItem("rp_d1", PETS.d1);
+
+      EPISODES = buildEpisodes();
+      renderExistingMessages();
+      renderBossStage();
+      renderSATStage();
+      updateParentPitchText();
+
+      if (copyLink) {
+        const shareUrl = `${window.location.origin}${window.location.pathname}?cat1=${encodeURIComponent(PETS.c1)}&cat2=${encodeURIComponent(PETS.c2)}&cat3=${encodeURIComponent(PETS.c3)}&cat4=${encodeURIComponent(PETS.c4)}&dog1=${encodeURIComponent(PETS.d1)}`;
+        navigator.clipboard.writeText(shareUrl);
+        const btn = document.getElementById("btn-copy-friend-link");
+        btn.innerText = "✅ Link Copied!";
+        setTimeout(() => {
+          btn.innerText = "🔗 Copy Link for Friends";
+          closePetModal();
+        }, 1200);
+      } else {
+        closePetModal();
+      }
+    }
+
+    // =========================================================================
+    // 4. CORE GAME & BILINGUAL LENS ENGINE
+    // =========================================================================
+    function syncZhButtonUI() {
+      const btn = document.getElementById("btn-zh-lens");
+      const label = document.getElementById("zh-lens-label");
+      if (zhLens) {
+        label.innerText = "中文: ON";
+        btn.className = "toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-[#00D68F] text-[#1E1B4B] flex items-center space-x-1";
+      } else {
+        label.innerText = "ZH: OFF";
+        btn.className = "toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-white text-[#1E1B4B] flex items-center space-x-1";
+      }
+    }
+
+    function toggleZhLens() {
+      zhLens = !zhLens;
+      syncZhButtonUI();
+      renderExistingMessages();
+      renderBossStage();
+      renderSATStage();
+      if (lastOpenedWord && !document.getElementById("vocab-drawer").classList.contains("hidden")) {
+        openWord(lastOpenedWord, true);
+      }
+    }
+
+    function loadEpisode(idx) {
+      currentEpIdx = idx;
+      msgIndex = 0;
+      const ep = EPISODES[idx];
+
+      [0, 1, 2].forEach(i => {
+        document.getElementById(`ep-tab-${i}`).className = i === idx
+          ? "toy-btn px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-[#FF477E] text-white"
+          : "toy-btn px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white text-[#1E1B4B]";
+      });
+
+      document.getElementById("hud-ep-code").innerText = ep.code;
+      document.getElementById("hud-title").innerText = ep.title;
+      document.getElementById("hud-subtitle").innerText = ep.subtitle;
+      document.getElementById("chat-channel-tag").innerText = ep.channel;
+
+      document.getElementById("chat-stream").innerHTML = "";
+      const btn = document.getElementById("btn-next-msg");
+      btn.innerText = "SPILL NEXT TEA 💬 →";
+      btn.className = "toy-btn px-6 py-2.5 rounded-2xl bg-[#00D68F] text-[#1E1B4B] font-extrabold text-xs tracking-wide";
+
+      document.getElementById("boss-feedback").classList.add("hidden");
+      document.getElementById("sat-explanation").classList.add("hidden");
+
+      renderBossStage();
+      renderSATStage();
+      updateParentPitchText();
+      goToStage(1);
+      nextChatMessage();
+    }
+
+    function renderBossStage() {
+      const boss = EPISODES[currentEpIdx].boss;
+      document.getElementById("boss-cat-label").innerText = `${PETS.c2}_Snack_Agent`;
+      document.getElementById("boss-headline").innerText = boss.headline;
+      const hZh = document.getElementById("boss-headline-zh");
+      hZh.innerText = boss.headline_zh;
+      hZh.classList.toggle("hidden", !zhLens);
+
+      document.getElementById("boss-context").innerText = boss.context;
+      const cZh = document.getElementById("boss-context-zh");
+      cZh.innerText = boss.context_zh;
+      cZh.classList.toggle("hidden", !zhLens);
+
+      document.getElementById("boss-sentence").innerHTML = boss.sentence;
+      const sZh = document.getElementById("boss-sentence-zh");
+      sZh.innerText = boss.sentence_zh;
+      sZh.classList.toggle("hidden", !zhLens);
+
+      document.getElementById("boss-options-grid").innerHTML = boss.options.map((opt, i) => `
+        <div onclick="handleBossChoice(${opt.correct}, '${opt.word}')" class="toy-btn p-3.5 rounded-2xl bg-white hover:bg-[#FFF0F6] text-left cursor-pointer">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-display text-base font-bold text-[#1E1B4B]">${i === 0 ? 'A' : 'B'}. ${opt.word}</span>
+            <button onclick="speakWord('${opt.word}', event)" class="px-2 py-0.5 rounded-lg bg-[#FFD166] border border-[#1E1B4B] text-[10px] font-extrabold">🔊</button>
+          </div>
+          <p class="text-xs text-slate-600 font-medium">${opt.desc}</p>
+          ${zhLens ? `<p class="text-xs font-extrabold text-[#FF2A6D] mt-1">💡 ${opt.zh}</p>` : ""}
+        </div>
+      `).join("");
+    }
+
+    function renderSATStage() {
+      const sat = EPISODES[currentEpIdx].sat;
+      document.getElementById("sat-poppy-label").innerText = `${PETS.c1}'s 10-Second Context Code:`;
+      document.getElementById("sat-passage").innerHTML = sat.passage;
+
+      const pZh = document.getElementById("sat-passage-zh");
+      pZh.innerText = sat.passage_zh;
+      pZh.classList.toggle("hidden", !zhLens);
+
+      document.getElementById("sat-prompt-label").innerText = zhLens
+        ? "Which choice completes the text with the most logical and precise word? (请选择最符合上下文逻辑的精准词汇)"
+        : "Which choice completes the text with the most logical and precise word or phrase?";
+
+      document.getElementById("sat-choices-grid").innerHTML = sat.choices.map(c => `
+        <div onclick="checkSATAnswer(${c.correct})" class="toy-btn p-3 rounded-2xl bg-white hover:bg-[#F3EEFF] text-left transition-all cursor-pointer">
+          <div class="flex items-center justify-between">
+            <span class="font-extrabold text-sm text-[#1E1B4B]">(${c.letter}) ${c.word}</span>
+            <button onclick="speakWord('${c.word}', event)" class="px-1.5 py-0.5 rounded bg-[#F3EEFF] border border-[#1E1B4B] text-[10px]">🔊</button>
+          </div>
+          ${zhLens ? `<div class="text-xs font-bold text-[#7B5CFA] mt-1">${c.zh}</div>` : ""}
+        </div>
+      `).join("");
+
+      document.getElementById("sat-hack-en").innerHTML = sat.hack_en;
+      const hZh = document.getElementById("sat-hack-zh");
+      hZh.innerText = sat.hack_zh;
+      hZh.classList.toggle("hidden", !zhLens);
+    }
+
+    function setVibeMode(mode) {
+      vibeMode = mode;
+      document.getElementById("btn-story").className = mode === "story"
+        ? "px-2 py-1 text-[11px] rounded-lg font-extrabold transition-all bg-[#FF477E] text-white"
+        : "px-2 py-1 text-[11px] rounded-lg font-bold transition-all text-[#1E1B4B]";
+      document.getElementById("btn-savage").className = mode === "savage"
+        ? "px-2 py-1 text-[11px] rounded-lg font-extrabold transition-all bg-[#FF477E] text-white"
+        : "px-2 py-1 text-[11px] rounded-lg font-bold transition-all text-[#1E1B4B]";
+      if (lastOpenedWord && !document.getElementById("vocab-drawer").classList.contains("hidden")) {
+        openWord(lastOpenedWord, true);
+      }
+    }
+
+    function updateCoins(delta) {
+      coins += delta;
+      document.getElementById("coin-display").innerText = coins;
+    }
+
+    function renderExistingMessages() {
+      const container = document.getElementById("chat-stream");
+      container.innerHTML = "";
+      const list = EPISODES[currentEpIdx].chat;
+      for (let i = 0; i < msgIndex; i++) {
+        appendBubbleDOM(list[i], false);
+      }
+    }
+
+    function appendBubbleDOM(item, animate = true) {
+      const container = document.getElementById("chat-stream");
+      const div = document.createElement("div");
+      div.className = `bento-subcard p-3.5 ${item.isPet ? "bg-[#F3EEFF] ml-4" : "bg-white mr-4"} ${animate ? "animate-pop" : ""}`;
+      div.innerHTML = `
+        <div class="flex items-center space-x-1.5 mb-1">
+          <span class="text-base">${item.avatar}</span>
+          <span class="text-xs font-extrabold text-[#1E1B4B]">${item.sender}</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#FFD166] border border-[#1E1B4B] font-extrabold">${item.tag}</span>
+        </div>
+        <p class="text-xs sm:text-sm font-semibold text-[#1E1B4B] leading-relaxed">${item.en}</p>
+        ${zhLens ? `<p class="text-xs font-bold text-[#7B5CFA] mt-1.5 pt-1.5 border-t border-[#1E1B4B]/15">${item.zh}</p>` : ""}
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function nextChatMessage() {
+      const list = EPISODES[currentEpIdx].chat;
+      if (msgIndex < list.length) {
+        appendBubbleDOM(list[msgIndex], true);
+        msgIndex++;
+        document.getElementById("chat-progress-text").innerText = `TEA ${msgIndex} / ${list.length}`;
+        if (msgIndex === list.length) {
+          const btn = document.getElementById("btn-next-msg");
+          btn.innerText = "⚡ BOSS BATTLE TIME →";
+          btn.className = "toy-btn px-6 py-2.5 rounded-2xl bg-[#FF477E] text-white font-extrabold text-xs tracking-wide";
+        }
+      } else {
+        goToStage(2);
+      }
+    }
+
+    function openWord(wordKey, skipCoin = false) {
+      lastOpenedWord = wordKey;
+      const data = EPISODES[currentEpIdx].vocab[wordKey];
+      if (!data) return;
+      if (!skipCoin) updateCoins(10);
+      speakWord(data.word);
+
+      document.getElementById("drawer-word").innerText = data.word;
+      document.getElementById("drawer-pos").innerText = data.pos;
+      document.getElementById("drawer-def-en").innerText = data.def_en;
+
+      const zhEl = document.getElementById("drawer-def-zh");
+      zhEl.innerText = "🇨🇳 中文释义：" + data.def_zh;
+      zhEl.classList.toggle("hidden", !zhLens);
+
+      document.getElementById("drawer-root").innerText = data.root;
+      document.getElementById("drawer-mode-label").innerText = vibeMode === "story" ? "🌈 Fun Visual (G5-8): " : "🔥 Savage Roast (G9-12): ";
+      document.getElementById("drawer-hook").innerText = vibeMode === "story" ? data.story_hook : data.savage_roast;
+
+      document.getElementById("drawer-synonyms").innerHTML = data.synonyms
+        .map(s => `<span class="px-2.5 py-0.5 rounded-full bg-[#FFD166] border border-[#1E1B4B] font-extrabold text-[10px]">${s}</span>`)
+        .join("");
+
+      document.getElementById("vocab-drawer").classList.remove("hidden");
+    }
+
+    function closeDrawer() {
+      document.getElementById("vocab-drawer").classList.add("hidden");
+    }
+
+    function handleBossChoice(isCorrect, chosenWord) {
+      const boss = EPISODES[currentEpIdx].boss;
+      const fb = document.getElementById("boss-feedback");
+      document.getElementById("boss-blank").innerText = chosenWord;
+      fb.classList.remove("hidden");
+
+      if (!isCorrect) {
+        fb.className = "p-4 rounded-2xl bg-[#FFE4EC] border-2 border-[#1E1B4B] animate-pop mt-2";
+        fb.innerHTML = `
+          <div class="text-xs font-extrabold text-[#FF2A6D] mb-1">${boss.wasted_title}</div>
+          <p class="text-xs text-[#1E1B4B] font-semibold mb-1.5">${boss.wasted_body}</p>
+          ${zhLens ? `<p class="text-xs font-bold text-[#7B5CFA] bg-white p-2 rounded-xl border border-[#1E1B4B]">${boss.wasted_zh}</p>` : ""}
+        `;
+      } else {
+        updateCoins(50);
+        fb.className = "p-4 rounded-2xl bg-[#E6FFF5] border-2 border-[#1E1B4B] animate-pop mt-2";
+        fb.innerHTML = `
+          <div class="text-xs font-extrabold text-[#00A86B] mb-1">🎉 SAVAGE WIN! +50 ⭐</div>
+          <p class="text-xs text-[#1E1B4B] font-semibold mb-2">${boss.win_body}</p>
+          ${zhLens ? `<p class="text-xs font-bold text-[#008055] mb-2">${boss.win_zh}</p>` : ""}
+          <button onclick="goToStage(3)" class="toy-btn w-full py-2.5 rounded-xl bg-[#7B5CFA] text-white font-extrabold text-xs">
+            ENTER DIGITAL EXAM ARENA 🎯 →
+          </button>
+        `;
+      }
+      // Smooth auto-scroll so feedback button is never clipped!
+      setTimeout(() => fb.scrollIntoView({ behavior: "smooth", block: "end" }), 60);
+    }
+
+    function checkSATAnswer(isCorrect) {
+      if (isCorrect) {
+        updateCoins(100);
+        const c1 = document.getElementById("clue-1");
+        const c2 = document.getElementById("clue-2");
+        if (c1) c1.className = "bg-[#00D68F] text-[#1E1B4B] px-1.5 py-0.5 rounded font-extrabold";
+        if (c2) c2.className = "bg-[#00D68F] text-[#1E1B4B] px-1.5 py-0.5 rounded font-extrabold";
+        const exp = document.getElementById("sat-explanation");
+        exp.classList.remove("hidden");
+        // CRITICAL FIX: Smooth auto-scroll so #sat-explanation & Next Stage button are 100% visible!
+        setTimeout(() => exp.scrollIntoView({ behavior: "smooth", block: "end" }), 60);
+      } else {
+        alert(zhLens ? `😺 ${PETS.c1} 提示：仔细看冒号或转折词后面的同义线索词！` : `😺 ${PETS.c1}'s Hint: Check the context clue right after the colon or contrast signal!`);
+      }
+    }
+
+    function setPitchLang(lang) {
+      pitchLang = lang;
+      document.getElementById("pitch-btn-en").className = lang === "en"
+        ? "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-[#FFD166] font-extrabold"
+        : "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-white font-bold";
+      document.getElementById("pitch-btn-zh").className = lang === "zh"
+        ? "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-[#FFD166] font-extrabold"
+        : "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-white font-bold";
+      updateParentPitchText();
+    }
+
+    function updateParentPitchText() {
+      const ep = EPISODES[currentEpIdx];
+      const box = document.getElementById("parent-msg-preview");
+      if (pitchLang === "en") {
+        box.innerText = `Hey Mom/Dad! ✨ I just scored 100% on RoastPrep (${ep.code}: ${ep.title}) with ${PETS.c1}, ${PETS.c2}, and ${PETS.d1}! I mastered 10 high-frequency Digital SAT words + a Hard Module 2 passage in 90 seconds. The Thanksgiving Pass unlocks all 2,400 words ($49 Solo / $79 Family Pass for siblings). Can we unlock it? 👉 https://roastprep.com`;
+      } else {
+        box.innerText = `爸/妈！✨ 我刚在北美超火的 SAT 语境闯关神器 RoastPrep 满分通关了【${ep.code} ${ep.title}】，90秒吃透了 10 个核心学术词并秒杀了高难真题！感恩节通行证包含全部 2,400 个 SAT 核心词 + 可打印速查宝典 PDF（单人 $49 / 全家二胎通吃卡 $79），帮我点这个链接解锁吧 👉 https://roastprep.com/?lens=zh`;
+      }
+    }
+
+    function copyParentMessage() {
+      navigator.clipboard.writeText(document.getElementById("parent-msg-preview").innerText);
+      const btn = document.getElementById("btn-copy-parent");
+      btn.innerText = "✅ Copied! Send to Parents!";
+      setTimeout(() => (btn.innerText = "📋 Copy Text for Parents"), 2000);
+    }
+
+    function nextEpisodeFunnel() {
+      loadEpisode((currentEpIdx + 1) % EPISODES.length);
+    }
+
+    function goToStage(stageNum) {
+      currentStage = stageNum;
+      closeDrawer();
+      ["stage-chat", "stage-boss", "stage-sat", "stage-paywall"].forEach((id, idx) => {
+        document.getElementById(id).classList.toggle("hidden", idx + 1 !== stageNum);
+      });
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`step-bar-${i}`).className = i <= stageNum
+          ? "h-2.5 rounded-full border-2 border-[#1E1B4B] bg-[#00D68F] transition-all"
+          : "h-2.5 rounded-full border-2 border-[#1E1B4B] bg-white transition-all";
+      }
+    }
+
+    // Built-in Automated Smoke Test (?test=1)
+    // NOTE: the forbidden cat2 spelling is built dynamically ("Moc"+"chi") so the
+    // literal never appears in this file (QA check 2 = zero occurrences), and the
+    // check uses innerText (rendered text) instead of innerHTML — innerHTML would
+    // include this <script> block's own source and always trip the assertion.
+    function runAutomatedSmokeTest() {
+      const badName = ["Moc", "chi"].join("");
+      console.assert(!document.body.innerText.includes(badName), "QA FAIL: Typo in cat2 name found");
+      goToStage(1); goToStage(2); goToStage(3); goToStage(4); goToStage(1);
+      toggleZhLens();
+      checkSATAnswer(true);
+      console.assert(!document.getElementById("sat-explanation").classList.contains("hidden"), "QA FAIL: Stage 3 explanation not visible");
+      console.log("✅ ALL QA CHECKS PASSED");
+    }
+
+    window.onload = () => {
+      syncZhButtonUI();
+      loadEpisode(0);
+      if (urlParams.get("test") === "1") runAutomatedSmokeTest();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROASTPREP // Guru Command Center & Venture Bible (v3.2 GitHub Stack)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg-paper: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --ink-primary: #141413;
+      --ink-secondary: #57534E;
+      --border-hairline: #E7E5E4;
+      --accent-sage: #0F4C3A;
+      --accent-amber: #B45309;
+    }
+    body {
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-serif-guru {
+      font-family: "Instrument Serif", Georgia, serif;
+    }
+    .font-mono-code {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .guru-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      box-shadow: 0 1px 3px rgba(20, 20, 19, 0.03);
+      border-radius: 12px;
+    }
+    .guru-badge {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .tab-active {
+      background-color: #141413;
+      color: #FAF8F5;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-6 px-4 sm:px-8 max-w-6xl mx-auto">
+
+  <!-- ==================== STICKY GITHUB COMMAND DOCK ==================== -->
+  <nav class="sticky top-3 z-40 mb-6 guru-card p-3 bg-white/95 backdrop-blur-md border-2 border-[#141413] flex flex-wrap items-center justify-between gap-3 shadow-md">
+    <div class="flex items-center space-x-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#0F4C3A] animate-pulse"></span>
+      <span class="font-mono-code text-xs font-bold tracking-tight text-[#141413]">ROASTPREP // GITHUB COMMAND DOCK</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <a href="./game.html" id="nav-link-game" class="px-3.5 py-1.5 rounded-lg bg-[#0F4C3A] text-white text-xs font-mono-code font-semibold hover:opacity-90 transition-all">
+        🎮 启动游戏 (./game.html) ↗
+      </a>
+      <button onclick="toggleGameModal()" class="px-3 py-1.5 rounded-lg border border-[#0F4C3A] text-[#0F4C3A] bg-[#0F4C3A]/5 text-xs font-mono-code font-semibold hover:bg-[#0F4C3A]/10 transition-all">
+        📱 页内悬浮试玩
+      </button>
+      <a href="./PROJECT_BRAIN.md" target="_blank" class="px-3 py-1.5 rounded-lg bg-amber-800 text-white text-xs font-mono-code font-semibold hover:opacity-90 transition-all">
+        🧠 PROJECT_BRAIN.md ↗
+      </a>
+      <a href="./ai_vault/01_AI_RELAY_BOARD.md" target="_blank" class="px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-100 text-stone-800 text-xs font-mono-code font-semibold hover:bg-stone-200 transition-all">
+        🔄 AI 传话板 ↗
+      </a>
+      <a href="#ai-vault" class="px-3 py-1.5 rounded-lg bg-stone-900 text-white text-xs font-mono-code font-semibold hover:bg-stone-700 transition-all">
+        ↓ 4合1 Vault
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==================== IN-PAGE LIVE GAME PREVIEW MODAL ==================== -->
+  <div id="game-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#FAF8F5] border-2 border-[#141413] rounded-2xl w-full max-w-2xl h-[88vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="px-4 py-2.5 bg-[#141413] text-white flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-mono-code text-emerald-400">● LIVE SANDBOX</span>
+          <span id="iframe-url-label" class="text-xs font-mono-code text-stone-300">./game.html</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <a href="./game.html" id="modal-open-new" target="_blank" class="text-xs font-mono-code px-2.5 py-1 rounded bg-stone-800 hover:bg-stone-700 text-stone-200">
+            全屏打开 ↗
+          </a>
+          <button onclick="toggleGameModal()" class="text-xs font-mono-code px-2.5 py-1 rounded bg-rose-600 hover:bg-rose-500 text-white font-bold">
+            关闭 ✕
+          </button>
+        </div>
+      </div>
+      <iframe id="game-iframe" src="./game.html" class="w-full flex-1 bg-white border-0"></iframe>
+    </div>
+  </div>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="border-b border-stone-300 pb-6 mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+    <div>
+      <div class="flex flex-wrap items-center gap-2 mb-2">
+        <span class="guru-badge bg-[#0F4C3A] text-white font-semibold">GITHUB STACK // v3.2</span>
+        <span class="guru-badge bg-amber-500/15 text-amber-900 font-semibold">DOMAINS: ROASTPREP.COM + ROASTPREP.ORG</span>
+        <span class="guru-badge bg-stone-200 text-stone-800 font-semibold">TARGET: NOV 26 THANKSGIVING</span>
+      </div>
+      <h1 class="font-serif-guru text-4xl sm:text-5xl text-[#141413] tracking-tight">
+        RoastPrep: The Zero-Friction K-12 Cash-Cow Bible
+      </h1>
+      <p class="text-sm text-[#57534E] mt-1">
+        直连 <code>./game.html</code> 与 <code>./PROJECT_BRAIN.md</code> • 创始人极简工作流 (5%人类+95%AI) • 9大暴利秘籍与四合一 AI 记忆金库
+      </p>
+    </div>
+
+    <div class="guru-card px-4 py-3 bg-stone-50 border border-stone-300 text-xs font-mono-code">
+      <div class="text-[10px] text-[#57534E] uppercase font-bold mb-1">📂 GitHub 仓库核心入口：</div>
+      <div class="space-y-0.5 text-[11px]">
+        <div>1. <a href="./index.html" class="underline font-bold text-[#0F4C3A]">./index.html</a> (Guru 战略总控台)</div>
+        <div>2. <a href="./game.html" class="underline font-bold text-amber-800">./game.html</a> (v3.2 五宠闯关游戏)</div>
+        <div>3. <a href="./PROJECT_BRAIN.md" class="underline font-bold text-stone-800">./PROJECT_BRAIN.md</a> (最高宪法主脑)</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== SECTION 1: DOMAIN SHIELD & 9 SECRETS ==================== -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-serif-guru text-2xl sm:text-3xl text-[#141413]">01. 双子星域名防线与 9 大压箱底暴利秘籍 (Domains & 9 Cash Levers)</h2>
+      <span class="text-xs font-mono-code text-[#0F4C3A]">100% VERIFIED & LOCKED</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="guru-card p-5 border-l-4 border-l-[#0F4C3A]">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-mono-code text-[#0F4C3A] font-bold">PRIMARY COMMERCIAL ENGINE // 主力收银台</span>
+          <span class="guru-badge bg-emerald-100 text-emerald-900">ROASTPREP.COM</span>
+        </div>
+        <h3 class="text-xl font-bold mb-1">RoastPrep.com</h3>
+        <p class="text-xs text-[#57534E] leading-relaxed">
+          承接 95% 的自然手输流量与社交裂变链接。<code>Prep</code> 直击北美家长 SAT/SSAT/AP 刚需备考心智，<code>Roast</code> 让青少年秒懂“毒舌爽剧学单词”，守住商业最高主权。
+        </p>
+      </div>
+
+      <div class="guru-card p-5 border-l-4 border-l-amber-700">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-mono-code text-amber-800 font-bold">SCHOOL & ESA GRANT MIRROR // 校园网与政府补贴护盾</span>
+          <span class="guru-badge bg-amber-100 text-amber-900">ROASTPREP.ORG</span>
+        </div>
+        <h3 class="text-xl font-bold mb-1">RoastPrep.org</h3>
+        <p class="text-xs text-[#57534E] leading-relaxed">
+          一键绑定至同一个 GitHub / Vercel 项目！专门用于穿透极严格的美国中小学校园网防火墙，并作为开具 <b>美国各州政府 ESA 教育补贴与 Homeschool 报销收据</b> 的官方学术镜像站。
+        </p>
+      </div>
+    </div>
+
+    <div class="guru-card p-5">
+      <h3 class="text-xs font-mono-code uppercase text-[#57534E] font-bold mb-3">📌 已锁死入库的 9 大商业秘籍 + 5 大合规护盾</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+          <b>1. 二胎连坐定价 ($49 vs $79)</b>：单人 SAT 卖 $49；全家小初高通吃卡卖 $79（支持大宝考SAT+二宝学SSAT），客单价立涨 60%。
+        </div>
+        <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+          <b>2. 升学焦虑日历套利</b>：秋冬卖 SAT/SSAT，春季（1-5月）同引擎换 JSON 词库卖 AP 历史/心理/生物，暑假卖防变笨特训营。
+        </div>
+        <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+          <b>3. 政府 ESA 补贴白嫖术</b>：用 <code>RoastPrep.org</code> 出具 <code>Interactive ELA Context Curriculum</code> 收据，刷政府的教育补贴卡。
+        </div>
+        <div class="p-3 rounded-lg bg-amber-50/50 border border-amber-200">
+          <b>4. 好友宠物 URL 注入木马</b>：网址后缀 <code>?cat3=Luna&dog1=Buster</code> 动态改名，发给同学看自家宠物飙 SAT 词，引爆班级群截图。
+        </div>
+        <div class="p-3 rounded-lg bg-amber-50/50 border border-amber-200">
+          <b>5. 感恩节创始 50 席逼单</b>：前 50 名购买家庭可将自家宠物永久写进第二季官方历史关卡，让孩子主动催爸妈秒付。
+        </div>
+        <div class="p-3 rounded-lg bg-amber-50/50 border border-amber-200">
+          <b>6. 单校高密度微垄断</b>：先用自家 15 岁和 12 岁孩子的社交圈 + 朋友家 2猫1狗，打穿本地初高中熟人圈。
+        </div>
+        <div class="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200">
+          <b>7. 部署 `/llms.txt` 截流 AI</b>：让 ChatGPT / Claude / Perplexity 在家长问“什么背单词软件不无聊”时免费把我们排第 1。
+        </div>
+        <div class="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200">
+          <b>8. 零成本 TTS 发音 + 狗狗捧哏</b>：原生 <code>speechSynthesis</code> 美音朗读 + 热血狗狗角色大白话总结，消灭哑巴词汇。
+        </div>
+        <div class="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200">
+          <b>9. 合规与防退款满配</b>：College Board 商标免责声明 + COPPA 零注册隐私免疫 + 付款即送《2400词常春藤速查 PDF》。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: 5-PET CUSTOMIZER & DIRECT LAUNCHER ==================== -->
+  <section id="pet-customizer" class="mb-10 grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <div class="lg:col-span-7 guru-card p-5 border-2 border-[#0F4C3A]">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <span class="guru-badge bg-[#0F4C3A] text-white">5-PET SQUAD ENGINE // 五宠动态配置器</span>
+        <a id="custom-game-launcher" href="./game.html?cat1=Poppy&cat2=Mochi&cat3=Luna&cat4=Boba&dog1=Buster" class="px-3.5 py-1.5 rounded bg-[#0F4C3A] text-white text-xs font-mono-code font-bold hover:opacity-90">
+          🎮 带此五宠名字直接进入 game.html ↗
+        </a>
+      </div>
+      <h3 class="font-serif-guru text-2xl text-[#141413] mt-2 mb-1">
+        02. 2只主猫 (Poppy & Mochi) + 朋友家 2猫1狗 动态注入
+      </h3>
+      <p class="text-xs text-[#57534E] mb-3">
+        修改下方宠物真名后，点击右上角绿色按钮即可直接带着这 5 只宠物进入 <code>./game.html</code>！
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs mb-3">
+        <div class="p-2.5 rounded bg-stone-50 border border-stone-200">
+          <div class="text-[10px] font-mono-code text-[#0F4C3A] font-bold">1. 主猫女主 (毒舌学霸)</div>
+          <input id="pet-1" type="text" value="Poppy" oninput="syncVaultMarkdown()" class="mt-1 w-full font-bold bg-white border border-stone-300 rounded px-2 py-1" />
+        </div>
+        <div class="p-2.5 rounded bg-stone-50 border border-stone-200">
+          <div class="text-[10px] font-mono-code text-[#0F4C3A] font-bold">2. 主猫男主 (贪吃Mochi)</div>
+          <input id="pet-2" type="text" value="Mochi" oninput="syncVaultMarkdown()" class="mt-1 w-full font-bold bg-white border border-stone-300 rounded px-2 py-1" />
+        </div>
+        <div class="p-2.5 rounded bg-amber-50 border border-amber-300">
+          <div class="text-[10px] font-mono-code text-amber-900 font-bold">3. 朋友猫A (八卦截图王)</div>
+          <input id="pet-3" type="text" value="Luna" oninput="syncVaultMarkdown()" class="mt-1 w-full font-bold bg-white border border-amber-400 rounded px-2 py-1" />
+        </div>
+        <div class="p-2.5 rounded bg-amber-50 border border-amber-300">
+          <div class="text-[10px] font-mono-code text-amber-900 font-bold">4. 朋友猫B (时尚毒舌家)</div>
+          <input id="pet-4" type="text" value="Boba" oninput="syncVaultMarkdown()" class="mt-1 w-full font-bold bg-white border border-amber-400 rounded px-2 py-1" />
+        </div>
+        <div class="p-2.5 rounded bg-emerald-50 border border-emerald-400 sm:col-span-2">
+          <div class="text-[10px] font-mono-code text-[#0F4C3A] font-bold">5. 朋友家狗子 (金毛脑回路·终极人话翻译汪)</div>
+          <input id="pet-5" type="text" value="Buster" oninput="syncVaultMarkdown()" class="mt-1 w-full font-bold bg-white border border-emerald-500 rounded px-2 py-1" />
+        </div>
+      </div>
+
+      <div class="p-2.5 rounded bg-stone-100 text-[11px] font-mono-code flex items-center justify-between">
+        <span id="preview-share-url" class="truncate text-stone-700">./game.html?cat1=Poppy&cat2=Mochi&cat3=Luna&cat4=Boba&dog1=Buster</span>
+        <button onclick="copyCustomGameUrl()" id="btn-copy-url" class="text-[#0F4C3A] font-bold ml-2 shrink-0 underline">复制专属游戏链接</button>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 guru-card p-5">
+      <span class="guru-badge bg-stone-200 text-stone-800">2,400 WORDS // 8 SEASONS × 30 EPS</span>
+      <h3 class="font-serif-guru text-2xl text-[#141413] mt-1 mb-2">
+        03. 八季 2,400 词戏剧冲突矩阵
+      </h3>
+      <div class="space-y-1.5 text-xs text-[#57534E]">
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S1 塑料社交与人设崩塌 (300词)</b>：凡尔赛宫/美高宫斗 (<i>obsequious, disingenuous, perfidious</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S2 诡辩大师与逻辑暴击 (300词)</b>：伽利略审判/苏格拉底 (<i>empirical, corroborate, specious</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S3 疯狂实验室与末日灾变 (300词)</b>：庞贝业主群/炼金术 (<i>dormant, volatile, ephemeral</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S4 权力的游戏与王座背刺 (300词)</b>：凯撒高管群/倾茶事件 (<i>hegemony, usurp, acquiesce</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S5 毒舌评论家与艺术审判 (300词)</b>：米开朗基罗怼甲方群 (<i>banal, derivative, iconoclast</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S6 华尔街之狼与荒诞泡沫 (300词)</b>：1637郁金香炒家群 (<i>lucrative, austere, ubiquitous</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S7 大脑黑客与心理迷宫 (300词)</b>：巴甫洛夫的狗私密群 (<i>ambivalent, catharsis, dogmatic</i>)</div>
+        <div class="p-1.5 rounded bg-stone-50 border border-stone-200"><b>S8 终极审判：宇宙悖论 (300词)</b>：量子物理吵架群 (<i>paradigm, inexorable, juxtapose</i>)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: 14-DAY THANKSGIVING CHECKLIST ==================== -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-serif-guru text-2xl sm:text-3xl text-[#141413]">04. 感恩节上线 14 天推进表 (勾选自动同步至底部 .MD)</h2>
+      <span class="text-xs font-mono-code text-[#57534E]">NOV 12 → NOV 26 THANKSGIVING</span>
+    </div>
+    <div class="guru-card p-5 grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs">
+      <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
+        <input type="checkbox" checked onchange="syncVaultMarkdown()" id="chk-1" class="mt-0.5 accent-[#0F4C3A]" />
+        <span><b>Step 1 (11/12 已完成)</b>：定型多巴胺 Teenage 风 UI + 修好 Stage 3 滚动遮挡 + 内置五宠改名器与发音按钮。</span>
+      </label>
+      <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
+        <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-2" class="mt-0.5 accent-[#0F4C3A]" />
+        <span><b>Step 2 (今晚)</b>：Muse 完成 GitHub 建栈并推送上线，绑定 <code>RoastPrep.com</code> + <code>RoastPrep.org</code>。</span>
+      </label>
+      <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
+        <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-3" class="mt-0.5 accent-[#0F4C3A]" />
+        <span><b>Step 3 (本周末)</b>：填好朋友家 2猫1狗真名，把专属链接发给家里 15 岁和 12 岁孩子及朋友试玩挑刺。</span>
+      </label>
+      <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
+        <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-4" class="mt-0.5 accent-[#0F4C3A]" />
+        <span><b>Step 4 (11/16–11/20)</b>：把 <code>PROJECT_BRAIN.md</code> 喂给 Gemini，批量跑出第一季 30 集 JSON 并接入 Stripe $49/$79 支付闭环。</span>
+      </label>
+      <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
+        <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-5" class="mt-0.5 accent-[#0F4C3A]" />
+        <span><b>Step 5 (11/21–11/24)</b>：用 Muse 生成五宠贴纸头像，录制小红书/X 实机视频。</span>
+      </label>
+      <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
+        <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-6" class="mt-0.5 accent-[#0F4C3A]" />
+        <span><b>Step 6 (11/26 感恩节)</b>：正式开售“感恩节创始 50 席（送宠物永久 NPC 客串权）”！</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: THE 4-TAB AI CONTEXT VAULT (.MD) ==================== -->
+  <section id="ai-vault" class="guru-card p-6 border-2 border-[#141413] bg-white">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200 mb-4">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="guru-badge bg-[#141413] text-white">4-IN-1 AI COMMAND VAULT</span>
+          <a href="./PROJECT_BRAIN.md" target="_blank" class="text-xs font-mono-code underline text-[#0F4C3A] font-semibold">
+            🔗 打开 ./PROJECT_BRAIN.md ↗
+          </a>
+        </div>
+        <h2 class="font-serif-guru text-3xl text-[#141413] mt-1">
+          05. One-Click Markdown Vault (Gemini / Claude / Muse / Growth)
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button onclick="copyVaultContent()" id="btn-copy-vault" class="px-4 py-2.5 rounded-lg bg-[#0F4C3A] text-white text-xs font-mono-code font-semibold hover:opacity-95 transition-all">
+          📋 一键复制当前 .MD
+        </button>
+        <button onclick="downloadVaultFile()" class="px-4 py-2.5 rounded-lg bg-stone-900 text-white text-xs font-mono-code font-semibold hover:bg-stone-700 transition-all">
+          ⬇️ 下载 .MD 文件
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-3">
+      <button onclick="switchVaultTab('master')" id="vtab-master" class="px-3 py-1.5 rounded-md text-xs font-mono-code font-semibold tab-active transition-all">
+        1. 🧠 PROJECT_BRAIN.md (总主脑)
+      </button>
+      <button onclick="switchVaultTab('relay')" id="vtab-relay" class="px-3 py-1.5 rounded-md text-xs font-mono-code font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+        2. 🔄 01_AI_RELAY_BOARD.md (跨AI传话筒)
+      </button>
+      <button onclick="switchVaultTab('muse')" id="vtab-muse" class="px-3 py-1.5 rounded-md text-xs font-mono-code font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+        3. 🎨 04_MUSE_VISUAL_STICKERS.md (五宠贴纸)
+      </button>
+      <button onclick="switchVaultTab('traffic')" id="vtab-traffic" class="px-3 py-1.5 rounded-md text-xs font-mono-code font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+        4. 🚀 llms.txt & 首发引流话术
+      </button>
+    </div>
+
+    <textarea id="vault-textarea" rows="16" class="w-full p-4 rounded-lg bg-[#FAF8F5] border border-stone-300 font-mono-code text-xs text-[#141413] leading-relaxed focus:outline-none focus:border-[#0F4C3A]"></textarea>
+  </section>
+
+  <footer class="mt-8 pt-4 border-t border-stone-200 text-center text-[11px] text-[#57534E]">
+    <p>RoastPrep.com & RoastPrep.org Executive Bible v3.2 • Wired to <a href="./game.html" class="underline font-semibold">./game.html</a> & <a href="./PROJECT_BRAIN.md" class="underline font-semibold">./PROJECT_BRAIN.md</a></p>
+  </footer>
+
+  <script>
+    let currentVaultTab = "master";
+
+    function getPets() {
+      return {
+        c1: document.getElementById("pet-1").value.trim() || "Poppy",
+        c2: document.getElementById("pet-2").value.trim() || "Mochi",
+        c3: document.getElementById("pet-3").value.trim() || "Luna",
+        c4: document.getElementById("pet-4").value.trim() || "Boba",
+        d1: document.getElementById("pet-5").value.trim() || "Buster"
+      };
+    }
+
+    function updateShareUrlPreview() {
+      const p = getPets();
+      const query = `?cat1=${encodeURIComponent(p.c1)}&cat2=${encodeURIComponent(p.c2)}&cat3=${encodeURIComponent(p.c3)}&cat4=${encodeURIComponent(p.c4)}&dog1=${encodeURIComponent(p.d1)}`;
+      const relativeUrl = `./game.html${query}`;
+      document.getElementById("preview-share-url").innerText = relativeUrl;
+      document.getElementById("custom-game-launcher").href = relativeUrl;
+      document.getElementById("nav-link-game").href = relativeUrl;
+      document.getElementById("modal-open-new").href = relativeUrl;
+      document.getElementById("iframe-url-label").innerText = relativeUrl;
+    }
+
+    function toggleGameModal() {
+      const modal = document.getElementById("game-modal");
+      const isHidden = modal.classList.contains("hidden");
+      if (isHidden) {
+        updateShareUrlPreview();
+        document.getElementById("game-iframe").src = document.getElementById("custom-game-launcher").href;
+        modal.classList.remove("hidden");
+      } else {
+        modal.classList.add("hidden");
+      }
+    }
+
+    function copyCustomGameUrl() {
+      const url = new URL(document.getElementById("custom-game-launcher").getAttribute("href"), window.location.href).href;
+      navigator.clipboard.writeText(url);
+      const btn = document.getElementById("btn-copy-url");
+      btn.innerText = "✅ 已复制专属链接！";
+      setTimeout(() => (btn.innerText = "复制专属游戏链接"), 2000);
+    }
+
+    function getMasterMarkdown() {
+      const p = getPets();
+      const chks = [1, 2, 3, 4, 5, 6].map(i => document.getElementById(`chk-${i}`).checked ? "[x]" : "[ ]");
+      return `# 🦄 PROJECT_BRAIN.md: RoastPrep.com & RoastPrep.org (Master Venture Vault v3.2)
+> **Updated**: 2026-11-12 | **Target Launch**: Thanksgiving (Nov 26, 2026)
+> **Repo Links**: [Guru Dashboard](./index.html) | [Play SAT Game](./game.html) | [AI Relay Board](./ai_vault/01_AI_RELAY_BOARD.md)
+> **Dual-Domain Shield**: \`RoastPrep.com\` (Primary Cash Register) + \`RoastPrep.org\` (School Whitelist & US State ESA Grant Mirror)
+
+## 1. Customizable 5-Pet Dynamic Squad (Spelling Locked: "Mochi")
+Supports URL injection (\`./game.html?cat1=${p.c1}&cat2=${p.c2}&cat3=${p.c3}&cat4=${p.c4}&dog1=${p.d1}\`):
+1. \`${p.c1}\` (Core Cat #1): Aloof Ivy-League Audit Cat.
+2. \`${p.c2}\` (Core Cat #2): Chaotic Snack-Obsessed Agent Cat.
+3. \`${p.c3}\` (Friend Cat A): Gossip Instigator & Screenshot Queen.
+4. \`${p.c4}\` (Friend Cat B): Historical Fashion & Vibe Critic.
+5. \`${p.d1}\` (Friend Dog 1): Golden-Retriever-Energy Hype Dog (translates hard SAT words into excited dog logic).
+
+## 2. Sprint Checklist
+- ${chks[0]} Step 1: Lock Dreamy Teen UI + Fix Stage 3 scroll + 5-Pet Customizer & TTS in \`game.html\`.
+- ${chks[1]} Step 2: Muse builds GitHub stack & pushes \`index.html\`, \`game.html\`, and \`PROJECT_BRAIN.md\`.
+- ${chks[2]} Step 3: Weekend playtest with 15yo, 12yo, and friends' pets (\`${p.c3}\`, \`${p.c4}\`, \`${p.d1}\`).
+- ${chks[3]} Step 4: Batch-generate Season 1 (30 episodes = 300 words) via Gemini \`factory.py\` & wire Stripe $49/$79.
+- ${chks[4]} Step 5: Generate 5-Pet stickers in Muse & record Xiaohongshu/X reels.
+- ${chks[5]} Step 6: Nov 26 Thanksgiving Launch!`;
+    }
+
+    function getRelayMarkdown() {
+      return `# 🔄 01_AI_RELAY_BOARD.md (跨 AI 传话筒与进度报告)
+> **Rule**: Every AI must read the latest block below before working, and prepend a new handoff block upon completion.
+
+### 🟢 [2026-11-12] From: Gemini ➡️ To: Muse (GitHub Stack Builder)
+- **Completed**:
+  1. Upgraded \`index.html\` (v3.2 Guru Hub) with direct links to \`./game.html\`, \`./PROJECT_BRAIN.md\`, and \`./ai_vault/01_AI_RELAY_BOARD.md\`.
+  2. Upgraded \`game.html\` (v3.2 Dreamy Teen Game) with Stage 3 auto-scroll fix, \`Mochi\` spelling fix, 5-Pet Squad Customizer Modal (\`🐾 Pet Squad\`), Web Speech API \`🔊\` pronunciation, and \`$49/$79\` Sibling Ladder Paywall.
+- **Next Task for Muse**:
+  Commit \`index.html\`, \`game.html\`, \`PROJECT_BRAIN.md\`, \`CLAUDE.md\`, \`llms.txt\`, and \`/ai_vault/*.md\` to the GitHub repository and verify GitHub Pages / Vercel preview.`;
+    }
+
+    function getMuseMarkdown() {
+      const p = getPets();
+      return `# 🎨 04_MUSE_VISUAL_STICKERS.md (5-Pet Squad Sticker Prompts)
+1. **${p.c1}**: \`Die-cut vinyl sticker of a sleek tuxedo cat wearing a gold monocle and lavender scarf, raising one supercilious eyebrow, Starface vector style, thick #1E1B4B outline, white background, no text --ar 1:1\`
+2. **${p.c2}**: \`Die-cut vinyl sticker of a chubby orange-and-white tabby cat wearing a crooked French powdered wig, stuffing a salmon croissant into its mouth, thick outline, white background, no text --ar 1:1\`
+3. **${p.c3}**: \`Die-cut vinyl sticker of a sassy calico cat wearing Y2K pink heart sunglasses, holding a smartphone taking a screenshot, thick outline, white background, no text --ar 1:1\`
+4. **${p.c4}**: \`Die-cut vinyl sticker of a fluffy silver cat wearing a beret, looking judgmentally through opera glasses, thick outline, white background, no text --ar 1:1\`
+5. **${p.d1}**: \`Die-cut vinyl sticker of an excited golden retriever dog wearing a backwards cap and Roman toga, tongue out, paws raised in a high-five cheer, thick outline, white background, no text --ar 1:1\``;
+    }
+
+    function getTrafficMarkdown() {
+      const p = getPets();
+      return `# 🚀 llms.txt & Viral Seed Scripts
+## Shareable Classmate Text (For Your 15yo & 12yo)
+"Bro I put your pets **${p.d1}** and **${p.c3}** into this time-travel group chat game and they're roasting French nobles in 1788 using SAT words 💀 Tap your pet's name: https://roastprep.com/game.html?cat3=${encodeURIComponent(p.c3)}&cat4=${encodeURIComponent(p.c4)}&dog1=${encodeURIComponent(p.d1)}"`;
+    }
+
+    function switchVaultTab(tab) {
+      currentVaultTab = tab;
+      ["master", "relay", "muse", "traffic"].forEach(t => {
+        document.getElementById(`vtab-${t}`).className = t === tab
+          ? "px-3 py-1.5 rounded-md text-xs font-mono-code font-semibold tab-active transition-all"
+          : "px-3 py-1.5 rounded-md text-xs font-mono-code font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all";
+      });
+      syncVaultMarkdown();
+    }
+
+    function syncVaultMarkdown() {
+      updateShareUrlPreview();
+      const box = document.getElementById("vault-textarea");
+      if (currentVaultTab === "master") box.value = getMasterMarkdown();
+      if (currentVaultTab === "relay") box.value = getRelayMarkdown();
+      if (currentVaultTab === "muse") box.value = getMuseMarkdown();
+      if (currentVaultTab === "traffic") box.value = getTrafficMarkdown();
+    }
+
+    function copyVaultContent() {
+      const box = document.getElementById("vault-textarea");
+      navigator.clipboard.writeText(box.value);
+      const btn = document.getElementById("btn-copy-vault");
+      btn.innerText = "✅ 已复制！";
+      setTimeout(() => (btn.innerText = "📋 一键复制当前 .MD"), 2000);
+    }
+
+    function downloadVaultFile() {
+      const box = document.getElementById("vault-textarea");
+      const map = {
+        master: "PROJECT_BRAIN.md",
+        relay: "01_AI_RELAY_BOARD.md",
+        muse: "04_MUSE_VISUAL_STICKERS.md",
+        traffic: "llms.txt"
+      };
+      const blob = new Blob([box.value], { type: "text/markdown;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = map[currentVaultTab];
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    window.onload = () => {
+      syncVaultMarkdown();
+    };
+  </script>
+</body>
+</html>
