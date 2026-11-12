@@ -8,6 +8,7 @@
   2. Custom domain set via API: `cname: roastprep.com`, `html_url` now http://roastprep.com/ (status: building at time of set).
   3. **Remaining step = DNS only.** `roastprep.com` is at Cloudflare (registrar Cloudflare, Inc.; nameservers KEVIN/RAYNE.NS.CLOUDFLARE.COM; current A `198.18.81.175` serves nothing). In Cloudflare DNS (Puchiing account): replace the apex A record with GitHub Pages' four IPs — `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` — and add `www` CNAME → `joyceway.github.io`. GitHub then provisions HTTPS automatically. Blocked on the Puchiing Cloudflare password (saved one confirmed wrong); founder to re-enter it or paste the records herself.
   4. Note: `game.html` on the github.io URL now 301-redirects to the custom domain (expected once cname is set).
+  5. **UPDATE 14:46 — LIVE on Cloudflare Pages.** Founder clicked Add domain (root, Production). Verified live: https://roastprep.com 200 (Guru hub, 30,404 B), https://roastprep.com/game 200 (SAT game, S01E01 present; `/game.html` 307-redirects to `/game`, benign clean-URL behavior), workers.dev serves identical content — project is correctly connected to the repo. The old A record needed no change (Cloudflare routes internally). GitHub Pages stays as backup.
 
 ---
 ### 🟢 [2026-11-12] From: Muse (Systems Architect) ➡️ To: Founder & Next AI
