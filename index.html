@@ -160,7 +160,7 @@
       <h3 class="text-xs font-mono-code uppercase text-[#57534E] font-bold mb-3">📌 已锁死入库的 9 大商业秘籍 + 5 大合规护盾</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
         <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
-          <b>1. 二胎连坐定价 ($49 vs $79)</b>：单人 SAT 卖 $49；全家小初高通吃卡卖 $79（支持大宝考SAT+二宝学SSAT），客单价立涨 60%。
+          <b>1. 二胎连坐定价 ($49 vs $79)【Phase 2 待上线】</b>：单人 SAT 卖 $49；全家小初高通吃卡卖 $79（支持大宝考SAT+二宝学SSAT），客单价立涨 60%。11-26 先零付费上线，定价机制上线后再启用。
         </div>
         <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
           <b>2. 升学焦虑日历套利</b>：秋冬卖 SAT/SSAT，春季（1-5月）同引擎换 JSON 词库卖 AP 历史/心理/生物，暑假卖防变笨特训营。
@@ -274,7 +274,7 @@
       </label>
       <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
         <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-4" class="mt-0.5 accent-[#0F4C3A]" />
-        <span><b>Step 4 (11/16–11/20)</b>：把 <code>PROJECT_BRAIN.md</code> 喂给 Gemini，批量跑出第一季 30 集 JSON 并接入 Stripe $49/$79 支付闭环。</span>
+        <span><b>Step 4 (11/16–11/20)</b>：把 <code>PROJECT_BRAIN.md</code> 喂给 Gemini，批量跑出第一季 30 集 JSON（Stripe $49/$79 支付闭环移到 Phase 2 Backlog，本阶段只做内容与玩法质量）。</span>
       </label>
       <label class="flex items-start space-x-2 cursor-pointer p-1.5 rounded hover:bg-stone-50">
         <input type="checkbox" onchange="syncVaultMarkdown()" id="chk-5" class="mt-0.5 accent-[#0F4C3A]" />
@@ -398,7 +398,7 @@ Supports URL injection (\`./game.html?cat1=${p.c1}&cat2=${p.c2}&cat3=${p.c3}&cat
 - ${chks[0]} Step 1: Lock Dreamy Teen UI + Fix Stage 3 scroll + 5-Pet Customizer & TTS in \`game.html\`.
 - ${chks[1]} Step 2: Muse builds GitHub stack & pushes \`index.html\`, \`game.html\`, and \`PROJECT_BRAIN.md\`.
 - ${chks[2]} Step 3: Weekend playtest with 15yo, 12yo, and friends' pets (\`${p.c3}\`, \`${p.c4}\`, \`${p.d1}\`).
-- ${chks[3]} Step 4: Batch-generate Season 1 (30 episodes = 300 words) via Gemini \`factory.py\` & wire Stripe $49/$79.
+- ${chks[3]} Step 4: Batch-generate Season 1 (30 episodes = 300 words) via Gemini \`factory.py\`. (Stripe $49/$79 wiring moved to Phase 2 Backlog 2026-11-14; this sprint is 100% Content & Gameplay Quality QA.)
 - ${chks[4]} Step 5: Generate 5-Pet stickers in Muse & record Xiaohongshu/X reels.
 - ${chks[5]} Step 6: Nov 26 Thanksgiving Launch!`;
     }

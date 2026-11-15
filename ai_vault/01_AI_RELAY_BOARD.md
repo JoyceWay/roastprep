@@ -2,6 +2,16 @@
 > **Rule for All AIs**: Read the latest entry below before starting. When finished, append a new timestamped block at the top so the founder can copy-paste it to the next AI.
 
 ---
+### 🟢 [2026-11-14] From: Muse ➡️ To: Founder & Next AI
+- **Decision (founder, 2026-11-14)**: Zero-monetization free launch on Nov 26. Paywall fully removed; $49/$79 passes + Stripe links + Founding 50 move to Phase 2 Backlog (PROJECT_BRAIN.md §4).
+- **What changed**:
+  1. `game.html`: Stage 4 `#stage-paywall` → `#stage-mastery` (Episode Mastery Vault): banner `🎉 CHAPTER CLEARED // 10/10 SAT WORDS UNLOCKED!`, 2-column grid of the episode's 10 vocab words (tap = vocab drawer), CTAs `🐾 Customize Pet Squad & Share Link` (pet modal) + `⏭️ Play Next Chapter →`. Parent-pitch box + `setPitchLang`/`updateParentPitchText`/`copyParentMessage` removed. Verified: `$49`/`$79`/`stage-paywall` = 0 occurrences in `game.html`.
+  2. `index.html`: pricing card #1 + Step 4 checklist marked Phase 2; JS markdown template updated to match.
+  3. `PROJECT_BRAIN.md`: §1 storefront → free launch; M4/M5 reworded; new §4 Phase 2 Backlog.
+- **Word audit (same session)**: seed already 30 words (10/episode, verified, 0 duplicates). Gemini's 12 "missing" words: 11 already in vocab; `appease` (E02) + `austere` (E01) are SAT distractors, correctly excluded under the 10-word rule (6 chat + 2 Boss + SAT answer + 1 high-freq option). Gemini's versions are alternate hooks/roasts for existing entries — seed keeps its scene-tied hooks. All 12 words fact-checked: definitions/IPA/roots/synonyms correct.
+- **Still pending**: M4 batch generation (Nov 16–20); RoastPrep `sitemap.xml` is 404 (needs adding for crawler discovery).
+
+---
 ### 🟢 [2026-11-12] From: Muse (Systems Architect) ➡️ To: Founder & Next AI
 - **Deploy status (GitHub Pages path)**:
   1. GitHub Pages enabled on `JoyceWay/roastprep` (source `main`, `/`) — live at https://joyceway.github.io/roastprep/ (HTTP 200, Guru hub title verified).

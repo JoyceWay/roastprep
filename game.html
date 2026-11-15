@@ -232,68 +232,35 @@
       </div>
     </section>
 
-    <!-- STAGE 4: SIBLING LADDER PRICING ($49 vs $79) & PARENT PITCH -->
-    <section id="stage-paywall" class="hidden flex-col min-h-[520px] max-h-[82vh] justify-between p-5 bg-[#FFFDF9] rounded-[21px] overflow-y-auto">
+    <!-- STAGE 4: EPISODE MASTERY VAULT (10/10 WORDS) -->
+    <section id="stage-mastery" class="hidden flex-col min-h-[520px] max-h-[82vh] justify-between p-5 bg-[#FFFDF9] rounded-[21px] overflow-y-auto">
       <div>
         <div class="flex items-center justify-between mb-2">
           <span class="px-3 py-1 rounded-full bg-[#00D68F] border-2 border-[#1E1B4B] text-[#1E1B4B] text-xs font-extrabold">
-            🎉 CHAPTER CLEARED // 100% ACCURACY
+            🎉 CHAPTER CLEARED // 10/10 SAT WORDS UNLOCKED!
           </span>
           <span class="text-xs font-extrabold text-[#FF477E]">+160 ⭐ Earned</span>
         </div>
 
         <h2 class="font-display text-2xl text-[#1E1B4B] mb-1">
-          Unlock All 8 Seasons (2,400 Words) ✨
+          🏆 Episode Mastery Vault
         </h2>
         <p class="text-xs font-semibold text-slate-600 mb-3">
-          Includes 240 Episodes + Printable 2,400-Word Ivy Context Bible PDF + ESA Curriculum Receipt!
+          本集 10 词大满贯图鉴 — tap any word to review it in the vocab drawer.
         </p>
 
-        <!-- SIBLING LADDER PRICING CARDS ($49 vs $79) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3.5">
-          <div class="bento-subcard p-3 bg-white">
-            <div class="text-[10px] font-extrabold text-slate-500 uppercase">Solo Student Pass</div>
-            <div class="font-display text-2xl font-bold text-[#1E1B4B] my-0.5">$49 <span class="text-xs line-through text-slate-400">$149</span></div>
-            <p class="text-[11px] text-slate-600 font-medium">Lifetime access to all 2,400 Digital SAT words for 1 student.</p>
-          </div>
-          <div class="bento-subcard p-3 bg-[#FFF0F6] border-[#FF477E] relative">
-            <span class="absolute -top-2.5 right-2 px-2 py-0.5 rounded-full bg-[#FF477E] text-white text-[9px] font-extrabold border border-[#1E1B4B]">
-              🔥 MOST POPULAR • SIBLING PASS
-            </span>
-            <div class="text-[10px] font-extrabold text-[#FF2A6D] uppercase">Household Family Pass (Up to 3 Kids)</div>
-            <div class="font-display text-2xl font-bold text-[#1E1B4B] my-0.5">$79 <span class="text-xs line-through text-slate-400">$299</span></div>
-            <p class="text-[11px] text-[#1E1B4B] font-semibold">Unlocks HS SAT + Middle School SSAT + Founding 50 Pet NPC Cameo!</p>
-          </div>
+        <!-- 10-word mastery grid (tap any pill to review in the vocab drawer) -->
+        <div class="bento-subcard p-3.5 bg-white mb-3">
+          <div id="unlocked-words" class="grid grid-cols-2 gap-1.5"></div>
         </div>
 
-        <!-- Unlocked words this episode (tap any sticker to review in the vocab drawer) -->
-        <div class="bento-subcard p-3.5 bg-white mb-3">
-          <div class="text-xs font-extrabold text-[#1E1B4B] mb-2">🔓 Words You Unlocked This Episode — tap any sticker to review:</div>
-          <div id="unlocked-words" class="flex flex-wrap gap-1.5"></div>
-        </div>
-
-        <!-- One-Click Parent Text Box -->
-        <div class="bento-subcard p-3.5 bg-white mb-3">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-extrabold text-[#1E1B4B]">💌 Ask Mom/Dad to Unlock:</span>
-            <div class="flex space-x-1">
-              <button onclick="setPitchLang('en')" id="pitch-btn-en" class="px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-[#FFD166] font-extrabold">
-                🇺🇸 iMessage (EN)
-              </button>
-              <button onclick="setPitchLang('zh')" id="pitch-btn-zh" class="px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-white font-bold">
-                📕 WeChat (中文战报)
-              </button>
-            </div>
-          </div>
-          <p id="parent-msg-preview" class="text-xs text-[#1E1B4B] bg-[#F8F7FF] p-2.5 rounded-xl border border-slate-300 font-medium leading-relaxed mb-2.5 select-all"></p>
-          <div class="grid grid-cols-2 gap-2">
-            <button onclick="copyParentMessage()" id="btn-copy-parent" class="toy-btn py-2 rounded-xl bg-[#FF477E] text-white font-extrabold text-xs">
-              📋 Copy Text for Parents
-            </button>
-            <button onclick="nextEpisodeFunnel()" class="toy-btn py-2 rounded-xl bg-[#FFD166] text-[#1E1B4B] font-extrabold text-xs">
-              ⏭️ Next Free Chapter →
-            </button>
-          </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="openPetModal()" class="toy-btn py-2 rounded-xl bg-[#FFD166] text-[#1E1B4B] font-extrabold text-xs">
+            🐾 Customize Pet Squad &amp; Share Link
+          </button>
+          <button onclick="nextEpisodeFunnel()" class="toy-btn py-2 rounded-xl bg-[#FF477E] text-white font-extrabold text-xs">
+            ⏭️ Play Next Chapter →
+          </button>
         </div>
       </div>
     </section>
@@ -889,7 +856,6 @@
     let currentEpIdx = 0;
     let currentStage = 1;
     let vibeMode = "story";
-    let pitchLang = "en";
     let msgIndex = 0;
     let coins = 200;
     let lastOpenedWord = null;
@@ -1222,34 +1188,6 @@
       }
     }
 
-    function setPitchLang(lang) {
-      pitchLang = lang;
-      document.getElementById("pitch-btn-en").className = lang === "en"
-        ? "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-[#FFD166] font-extrabold"
-        : "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-white font-bold";
-      document.getElementById("pitch-btn-zh").className = lang === "zh"
-        ? "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-[#FFD166] font-extrabold"
-        : "px-2.5 py-1 text-[10px] rounded-lg border border-[#1E1B4B] bg-white font-bold";
-      updateParentPitchText();
-    }
-
-    function updateParentPitchText() {
-      const ep = EPISODES[currentEpIdx];
-      const box = document.getElementById("parent-msg-preview");
-      if (pitchLang === "en") {
-        box.innerText = `Hey Mom/Dad! ✨ I just scored 100% on RoastPrep (${ep.code}: ${ep.title}) with ${PETS.c1}, ${PETS.c2}, and ${PETS.d1}! I mastered 10 high-frequency Digital SAT words + a Hard Module 2 passage in 90 seconds. The Thanksgiving Pass unlocks all 2,400 words ($49 Solo / $79 Family Pass for siblings). Can we unlock it? 👉 https://roastprep.com`;
-      } else {
-        box.innerText = `爸/妈！✨ 我刚在北美超火的 SAT 语境闯关神器 RoastPrep 满分通关了【${ep.code} ${ep.title}】，90秒吃透了 10 个核心学术词并秒杀了高难真题！感恩节通行证包含全部 2,400 个 SAT 核心词 + 可打印速查宝典 PDF（单人 $49 / 全家二胎通吃卡 $79），帮我点这个链接解锁吧 👉 https://roastprep.com/?lens=zh`;
-      }
-    }
-
-    function copyParentMessage() {
-      navigator.clipboard.writeText(document.getElementById("parent-msg-preview").innerText);
-      const btn = document.getElementById("btn-copy-parent");
-      btn.innerText = "✅ Copied! Send to Parents!";
-      setTimeout(() => (btn.innerText = "📋 Copy Text for Parents"), 2000);
-    }
-
     function nextEpisodeFunnel() {
       loadEpisode((currentEpIdx + 1) % EPISODES.length);
     }
@@ -1257,7 +1195,7 @@
     function goToStage(stageNum) {
       currentStage = stageNum;
       closeDrawer();
-      ["stage-chat", "stage-boss", "stage-sat", "stage-paywall"].forEach((id, idx) => {
+      ["stage-chat", "stage-boss", "stage-sat", "stage-mastery"].forEach((id, idx) => {
         document.getElementById(id).classList.toggle("hidden", idx + 1 !== stageNum);
       });
       for (let i = 1; i <= 4; i++) {

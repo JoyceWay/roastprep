@@ -8,7 +8,7 @@
   - **North America Native (Default)**: 100% English UI in "Happy Dreamy Teenage Pop" style (`#FFFDF7` cream, `#FF477E` pink, `#7B5CFA` purple, `#00D68F` mint, 3D tactile buttons). Features `Story Mode (G5-G8)` & `Savage Mode (G9-G12)`.
   - **Xiaohongshu / Bilingual Families**: One-click `🌐 中文 Lens: ON/OFF` (or URL `?lens=zh`) instantly reveals Chinese translations across ALL 4 stages.
 - **Dual-Domain Shield**:
-  - `RoastPrep.com`: Primary commercial storefront ($49 Solo Pass / $79 Household Family Pass for up to 3 siblings).
+  - `RoastPrep.com`: Free launch on Nov 26, 2026 (zero-monetization; Quality-First). $49 Solo Pass / $79 Household Family Pass move to Phase 2 Backlog (see §4).
   - `RoastPrep.org`: School Chromebook firewall-safe mirror & official curriculum receipt generator for US State ESA / Homeschool grants.
 
 ## 2. Dynamic 5-Pet Squad Architecture (Viral Trojan Horse)
@@ -23,5 +23,11 @@ Supports custom pet names via UI Modal or URL query (`./game.html?cat1=Poppy&cat
 - [x] **M1 (Nov 12)**: Lock Dreamy Teen UI + Guru Hub + 9 Commercial Secrets + GitHub Stack Specification.
 - [ ] **M2 (Nov 13)**: Complete GitHub repo wiring + Fix Stage 3 scroll clipping + Add 5-Pet Modal & `🔊` Web Speech TTS.
 - [ ] **M3 (Weekend)**: Seed local school friend circle using custom `?cat3=...&dog1=...` links with the founder's 15yo & 12yo kids.
-- [ ] **M4 (Nov 16-20)**: Batch-generate Season 1 (30 episodes = 300 words) via Gemini & wire Stripe $49/$79 payment links.
-- [ ] **M5 (Nov 26 Thanksgiving)**: Launch "Founding 50 Family Pass" (includes permanent Season 2 NPC pet cameo).
+- [ ] **M4 (Nov 16-20)**: Batch-generate Season 1 (30 episodes = 300 words) via Gemini. Stripe $49/$79 payment links move to Phase 2 Backlog — this sprint is 100% Content & Gameplay Quality QA.
+- [ ] **M5 (Nov 26 Thanksgiving)**: Free launch (zero-monetization). "Founding 50 Family Pass" (incl. permanent Season 2 NPC pet cameo) moves to Phase 2 Backlog.
+
+## 4. Phase 2 Backlog (post-launch monetization — decided 2026-11-14)
+- $49 Solo Pass / $79 Household Family Pass (up to 3 siblings) + Stripe payment links.
+- "Founding 50 Family Pass" launch (includes permanent Season 2 NPC pet cameo).
+- Printable 2,400-Word Ivy Context Bible PDF + ESA Curriculum Receipt (.org).
+- Rule: nothing here ships before the free launch proves Content & Gameplay Quality (Nov 26, 2026).
