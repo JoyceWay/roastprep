@@ -1226,7 +1226,8 @@
 
     window.onload = () => {
       syncZhButtonUI();
-      loadEpisode(0);
+      const epParam = parseInt(urlParams.get("ep") || "0", 10);
+      loadEpisode([0, 1, 2].includes(epParam) ? epParam : 0);
       if (urlParams.get("test") === "1") runAutomatedSmokeTest();
     };
   </script>
