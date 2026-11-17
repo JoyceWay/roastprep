@@ -1,36 +1,27 @@
 # RoastPrep
 
-> Gamified Digital SAT & K-12 vocabulary platform. Learn words through humor: cross-time group chats, boss battles, and authentic words-in-context arenas. Story Mode (G5-G8) and Savage Mode (G9-G12). One-click Chinese Lens for bilingual families.
+> RoastPrep is a free browser game that teaches SAT vocabulary to students in grades 7–11 (about ages 12–17). Five pets gossip in a group chat about real moments in history; each episode introduces 5 SAT words, then tests them with a look-alike-word "Boss battle", a "Word Cop" misuse check, and one SAT-style reading question. No account, no ads, no cookies. Optional Chinese hints for bilingual families.
 
-## Products
+## Play
+- [Play Season 1](https://roastprep.com/play/): 12 episodes, 55 SAT words, free.
 
-- Free launch: Thanksgiving, Nov 26, 2026 — Season 1 (30 episodes, 300 words) free, zero-monetization (founder decision 2026-11-14).
-- Phase 2 Backlog (not for sale yet, ships only after the free launch proves content & gameplay quality): Solo Pass $49 (one learner, full Season 1); Household Family Pass $79 (up to 3 siblings, full Season 1); Founding 50 Family Pass (includes permanent Season 2 NPC pet cameo).
+## Season 1 episodes
+- Versailles · 1788: The flattery economy
+- Paris · 1789: “Let them eat cake”? Prove it.
+- Westbrook High · 2026: Student council election: persona edition
+- Newport · 1895: A 70-room “cottage” and other humblebrags
+- The Emperor’s New Clothes: Everyone sees it. (Nobody sees it.)
+- Bath · 1813: A ball with a LOT of rules (and one terrible matchmaker)
+- Hollywood · 1928: Movies learn to talk. Fake life stories do not survive.
+- New Jersey · 1938: Martians on the radio. Panic in the newspapers. Wait — which part was real?
+- London · 1897: The newspapers say Mark Twain is dead. Mark Twain disagrees.
+- Online · 2026: The influencer apology video: three ring lights, perfectly timed tears
+- Urbino · 1528: The art of looking effortless (nine hours a day)
+- Venice · 1760s · Finale: A whole city in masks. One very tall wig.
 
-## Domains
+## Season 1 words
+alarmist, apocryphal, artifice, authentic, candid, complacent, complicit, conform, conspicuous, contrite, contrived, corroborate, credible, credulous, decorum, deign, deliberate, discreet, discrete, disingenuous, dissent, embellish, eminent, endorse, extravagant, fabricate, feign, frugal, hyperbole, hypercritical, hypocritical, imminent, ingenuous, meddlesome, misconstrue, nonchalant, obsequious, obstinate, ostentatious, parsimonious, plausible, pretentious, reticent, retract, sensational, sincere, skeptical, steadfast, superficial, tarnish, ulterior, understated, unfounded, vindicate, wry
 
-- Primary storefront: https://roastprep.com
-- School mirror & ESA / homeschool receipt generator: https://roastprep.org
-
-## Links
-
-- Guru Command Hub: https://roastprep.com/index.html
-- SAT Game: https://roastprep.com/game.html
-- Master architecture: https://roastprep.com/PROJECT_BRAIN.md
-- AI Relay Board: https://roastprep.com/ai_vault/01_AI_RELAY_BOARD.md
-- QA Protocol: https://roastprep.com/ai_vault/02_QA_AND_BUG_PROTOCOL.md
-
-## The 5-Pet Squad
-
-- Poppy (cat1): aloof Ivy-League audit cat, deadpan academic roaster
-- Mochi (cat2): chaotic snack-obsessed agent cat
-- Luna (cat3): gossip instigator & screenshot queen
-- Boba (cat4): historical fashion & vibe critic
-- Buster (dog1): golden-retriever-energy translator
-
-## Notes for AI agents
-
-- Read PROJECT_BRAIN.md before modifying anything.
-- Never alter the JSON schema keys used in game.html: vocab, chat, boss, sat.
-- The second core cat is spelled Mochi.
-- Bilingual: English UI by default; ?lens=zh reveals Chinese translations across all stages.
+## For parents
+- [Privacy policy](https://roastprep.com/privacy.html): no personal information collected from children; progress stays on the device.
+- Contact: hello@roastprep.com

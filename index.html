@@ -1,264 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RoastPrep — Learn SAT Words by Laughing | Fun Vocabulary Game for Kids</title>
-  <meta name="description" content="RoastPrep turns real SAT vocabulary into a hilarious group-chat game for elementary and middle school kids. No boring flashcards. Just royal drama, volcano oopsies, and five pets who roast everyone. Free to play." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-color: #FFFDF9;
-      color: #1E1B4B;
-      font-family: "Nunito", -apple-system, BlinkMacSystemFont, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    .font-display { font-family: "Baloo 2", "Nunito", sans-serif; }
-    .sticker-card {
-      background: #FFFFFF;
-      border: 3px solid #1E1B4B;
-      border-radius: 21px;
-      box-shadow: 5px 5px 0 #1E1B4B;
-    }
-    .toy-btn {
-      border: 3px solid #1E1B4B;
-      border-radius: 16px;
-      box-shadow: 3px 3px 0 #1E1B4B;
-      transition: transform .08s ease, box-shadow .08s ease;
-    }
-    .toy-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #1E1B4B; }
-    .toy-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #1E1B4B; }
-    .pill {
-      display: inline-block;
-      border: 2px solid #1E1B4B;
-      border-radius: 999px;
-      font-weight: 800;
-    }
-    .pet-img {
-      border: 3px solid #1E1B4B;
-      border-radius: 50%;
-      background: #FFFDF9;
-      object-fit: cover;
-    }
-    .locked { opacity: .75; }
-    .locked .sticker-card { background: #F5F1E8; box-shadow: 4px 4px 0 #C9C2B2; border-color: #8A8578; height: 100%; }
-  </style>
-</head>
-<body class="min-h-screen">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RoastPrep · SAT vocabulary, learned by roasting history</title><meta name="description" content="A free SAT vocabulary game for grades 7–11. Five pets gossip about real moments in history; you learn 55 SAT words in Season 1. No account, no ads."><link rel="canonical" href="https://roastprep.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:title" content="RoastPrep · SAT vocabulary, learned by roasting history"><meta property="og:description" content="A free SAT vocabulary game for grades 7–11. Five pets gossip about real moments in history; you learn 55 SAT words in Season 1. No account, no ads.">
+<meta property="og:image" content="https://roastprep.com/og.jpg"><meta property="og:url" content="https://roastprep.com/"><meta name="twitter:card" content="summary_large_image">
+<style>:root{--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--display:ui-rounded,"SF Pro Rounded","Nunito",var(--font);
+--bg:#FFF8EE;--surface:#fff;--s2:#F6F2FF;--ink:#1F1B3A;--muted:#6B6785;--line:#E9E3F5;--primary:#6C4CF5;--pink:#E84D8A}
+@media (prefers-color-scheme:dark){:root{--bg:#14121D;--surface:#1E1B2C;--s2:#272339;--ink:#F3F0FF;--muted:#A6A1C2;--line:#352F4D;--primary:#9B85FF}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--primary)}.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font:800 22px var(--display);color:var(--ink);text-decoration:none}.logo b{color:var(--pink)}
+.top nav a{margin-left:18px;font-weight:700;font-size:15px;text-decoration:none;color:var(--muted)}
+.btn{display:inline-block;background:var(--primary);color:#fff;font-weight:800;font-size:18px;text-decoration:none;border:2px solid var(--ink);border-radius:16px;padding:14px 26px;box-shadow:0 4px 0 var(--ink)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0 40px;color:var(--muted);font-size:14px}footer a{margin-right:16px}
+h1,h2{font-family:var(--display);letter-spacing:-.01em}
 
-  <!-- ==================== NAV ==================== -->
-  <nav class="sticky top-0 z-40 bg-[#FFFDF9]/95 backdrop-blur border-b-[3px] border-[#1E1B4B]">
-    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <a href="./" class="flex items-center gap-2">
-        <span class="text-2xl">🔥</span>
-        <span class="font-display text-2xl font-extrabold tracking-tight">RoastPrep</span>
-      </a>
-      <div class="hidden sm:flex items-center gap-5 text-sm font-extrabold">
-        <a href="#subjects" class="hover:text-[#7B5CFA]">Subjects</a>
-        <a href="#episodes" class="hover:text-[#7B5CFA]">Episodes</a>
-        <a href="#how" class="hover:text-[#7B5CFA]">How it works</a>
-      </div>
-      <a href="./game.html" class="toy-btn px-4 py-2 bg-[#FF477E] text-white text-sm font-extrabold">▶ Play free</a>
-    </div>
-  </nav>
-
-  <!-- ==================== HERO ==================== -->
-  <header class="max-w-5xl mx-auto px-4 pt-10 pb-8 text-center">
-    <p class="pill bg-[#FFD166] px-3 py-1 text-xs mb-4">FREE TO PLAY · NO SIGN-UP · NO BORING FLASHCARDS</p>
-    <h1 class="font-display text-4xl sm:text-6xl font-extrabold leading-[1.05] tracking-tight">
-      History's messiest moments.<br />Your <span class="text-[#7B5CFA]">funniest</span> words.
-    </h1>
-    <p class="mt-4 text-lg sm:text-xl font-bold text-[#57534E] max-w-2xl mx-auto">
-      RoastPrep turns real SAT vocabulary into a hilarious group-chat game.
-      Royal drama, volcano oopsies, and five pets who roast everyone — and the words actually stick.
-    </p>
-    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-      <a href="./game.html" class="toy-btn px-6 py-3 bg-[#FF477E] text-white font-display text-xl font-extrabold">▶ Play free</a>
-      <a href="#episodes" class="toy-btn px-6 py-3 bg-white font-display text-xl font-extrabold">Browse episodes ↓</a>
-    </div>
-    <p class="mt-4 text-sm font-extrabold text-[#57534E]">3 episodes · 30 SAT words · New episodes coming soon</p>
-
-    <!-- Pets -->
-    <div class="mt-8 flex flex-wrap justify-center gap-4 sm:gap-5">
-      <div class="w-[104px] text-center">
-        <img src="./assets/pets/poppy.png" alt="Poppy, the sarcastic grey tabby judge" class="pet-img w-24 h-24 mx-auto" />
-        <p class="font-display font-extrabold mt-2">Poppy</p>
-        <p class="text-xs font-bold text-[#57534E]">The judge. Zero patience for nonsense.</p>
-      </div>
-      <div class="w-[104px] text-center">
-        <img src="./assets/pets/mochi.png" alt="Mochi, the orange tabby who trades anything for a croissant" class="pet-img w-24 h-24 mx-auto" />
-        <p class="font-display font-extrabold mt-2">Mochi</p>
-        <p class="text-xs font-bold text-[#57534E]">The chaos. Will trade anything for a croissant.</p>
-      </div>
-      <div class="w-[104px] text-center">
-        <img src="./assets/pets/luna.webp" alt="Luna, the ragdoll gossip queen" class="pet-img w-24 h-24 mx-auto" />
-        <p class="font-display font-extrabold mt-2">Luna</p>
-        <p class="text-xs font-bold text-[#57534E]">The gossip. Screenshots everything first.</p>
-      </div>
-      <div class="w-[104px] text-center">
-        <img src="./assets/pets/boba.png" alt="Boba, the dramatic art critic" class="pet-img w-24 h-24 mx-auto" />
-        <p class="font-display font-extrabold mt-2">Boba</p>
-        <p class="text-xs font-bold text-[#57534E]">The critic. Every outfit is a tragedy.</p>
-      </div>
-      <div class="w-[104px] text-center">
-        <img src="./assets/pets/buster.png" alt="Buster, the golden retriever hype captain" class="pet-img w-24 h-24 mx-auto" />
-        <p class="font-display font-extrabold mt-2">Buster</p>
-        <p class="text-xs font-bold text-[#57534E]">The hype. Cheers for everyone, even the volcano.</p>
-      </div>
-    </div>
-  </header>
-
-  <!-- ==================== SUBJECTS ==================== -->
-  <section id="subjects" class="max-w-5xl mx-auto px-4 py-8">
-    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-center">Pick a subject</h2>
-    <p class="text-center font-bold text-[#57534E] mt-2">New subjects open up over time. English is open now — go play it.</p>
-    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-      <a href="./game.html" class="sticker-card p-5 block h-full hover:-translate-y-1 transition-transform">
-        <div class="flex items-start justify-between">
-          <span class="text-4xl">📚</span>
-          <span class="pill bg-[#00A86B] text-white px-2.5 py-0.5 text-xs">OPEN · PLAY NOW</span>
-        </div>
-        <h3 class="font-display text-2xl font-extrabold mt-3">English</h3>
-        <p class="font-extrabold text-[#7B5CFA]">SAT Words</p>
-        <p class="font-bold text-sm text-[#57534E] mt-2">Roast history's drama and steal its vocabulary. Real SAT words, real definitions, zero boring drills.</p>
-        <p class="mt-3 text-sm font-extrabold">3 episodes · 30 words</p>
-        <span class="toy-btn inline-block mt-3 px-4 py-2 bg-[#FF477E] text-white text-sm font-extrabold">▶ Play now</span>
-      </a>
-
-      <div class="locked">
-        <div class="sticker-card p-5">
-          <div class="flex items-start justify-between">
-            <span class="text-4xl">🔢</span>
-            <span class="pill bg-white px-2.5 py-0.5 text-xs">🔒 COMING SOON</span>
-          </div>
-          <h3 class="font-display text-2xl font-extrabold mt-3">Math</h3>
-          <p class="font-extrabold text-[#57534E]">Numbers, but funny</p>
-          <p class="font-bold text-sm text-[#57534E] mt-2">Word problems that read like gossip, and answers that feel like plot twists.</p>
-          <p class="mt-3 text-sm font-extrabold text-[#57534E]">Not open yet</p>
-        </div>
-      </div>
-
-      <div class="locked">
-        <div class="sticker-card p-5">
-          <div class="flex items-start justify-between">
-            <span class="text-4xl">🔬</span>
-            <span class="pill bg-white px-2.5 py-0.5 text-xs">🔒 COMING SOON</span>
-          </div>
-          <h3 class="font-display text-2xl font-extrabold mt-3">Science</h3>
-          <p class="font-extrabold text-[#57534E]">Explosions &amp; why stuff works</p>
-          <p class="font-bold text-sm text-[#57534E] mt-2">Experiments, animals, and space — the stuff your textbook makes boring, un-boringed.</p>
-          <p class="mt-3 text-sm font-extrabold text-[#57534E]">Not open yet</p>
-        </div>
-      </div>
-
-      <div class="locked">
-        <div class="sticker-card p-5">
-          <div class="flex items-start justify-between">
-            <span class="text-4xl">🏛️</span>
-            <span class="pill bg-white px-2.5 py-0.5 text-xs">🔒 COMING SOON</span>
-          </div>
-          <h3 class="font-display text-2xl font-extrabold mt-3">History</h3>
-          <p class="font-extrabold text-[#57534E]">The past was messy</p>
-          <p class="font-bold text-sm text-[#57534E] mt-2">Kings, inventors, and disasters — messier than your textbook admits, funnier than you expect.</p>
-          <p class="mt-3 text-sm font-extrabold text-[#57534E]">Not open yet</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== EPISODES ==================== -->
-  <section id="episodes" class="max-w-5xl mx-auto px-4 py-8">
-    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-center">Start with these episodes</h2>
-    <p class="text-center font-bold text-[#57534E] mt-2">Every episode teaches 10 real SAT words. Pick one and jump in.</p>
-    <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-
-      <div class="sticker-card p-5">
-        <span class="pill bg-[#7B5CFA] text-white px-2.5 py-0.5 text-xs">S01E01 · 👑</span>
-        <h3 class="font-display text-xl font-extrabold mt-3 leading-snug">Versailles VIP Group Chat (1788)</h3>
-        <p class="font-bold text-sm text-[#57534E]">Plastic Cliques &amp; Royal Drama</p>
-        <p class="mt-3 flex flex-wrap gap-1.5">
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">ostentatious</span>
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">sycophant</span>
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">perfidious</span>
-          <span class="pill bg-white px-2 py-0.5 text-xs">+ 7 more</span>
-        </p>
-        <a href="./game.html?ep=0" class="toy-btn inline-block mt-4 px-4 py-2 bg-[#FF477E] text-white text-sm font-extrabold">▶ Play E01</a>
-      </div>
-
-      <div class="sticker-card p-5">
-        <span class="pill bg-[#7B5CFA] text-white px-2.5 py-0.5 text-xs">S01E02 · 🔭</span>
-        <h3 class="font-display text-xl font-extrabold mt-3 leading-snug">Galileo's Telescope Chat (1633)</h3>
-        <p class="font-bold text-sm text-[#57534E]">Gaslight, Gatekeep, Galileo</p>
-        <p class="mt-3 flex flex-wrap gap-1.5">
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">sagacious</span>
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">specious</span>
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">equivocate</span>
-          <span class="pill bg-white px-2 py-0.5 text-xs">+ 7 more</span>
-        </p>
-        <a href="./game.html?ep=1" class="toy-btn inline-block mt-4 px-4 py-2 bg-[#FF477E] text-white text-sm font-extrabold">▶ Play E02</a>
-      </div>
-
-      <div class="sticker-card p-5">
-        <span class="pill bg-[#7B5CFA] text-white px-2.5 py-0.5 text-xs">S01E03 · 🌋</span>
-        <h3 class="font-display text-xl font-extrabold mt-3 leading-snug">Pompeii HOA Group Chat (79 AD)</h3>
-        <p class="font-bold text-sm text-[#57534E]">Mad Science &amp; Volcano Oopsies</p>
-        <p class="mt-3 flex flex-wrap gap-1.5">
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">cataclysmic</span>
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">ephemeral</span>
-          <span class="pill bg-[#FFD166] px-2 py-0.5 text-xs">volatile</span>
-          <span class="pill bg-white px-2 py-0.5 text-xs">+ 7 more</span>
-        </p>
-        <a href="./game.html?ep=2" class="toy-btn inline-block mt-4 px-4 py-2 bg-[#FF477E] text-white text-sm font-extrabold">▶ Play E03</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== HOW IT WORKS ==================== -->
-  <section id="how" class="max-w-5xl mx-auto px-4 py-8">
-    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-center">How it works</h2>
-    <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="sticker-card p-5 text-center">
-        <p class="text-4xl">🎬</p>
-        <h3 class="font-display text-xl font-extrabold mt-2">1 · Pick an episode</h3>
-        <p class="font-bold text-sm text-[#57534E] mt-1">Versailles, Galileo, Pompeii. Real drama, real history, real mess.</p>
-      </div>
-      <div class="sticker-card p-5 text-center">
-        <p class="text-4xl">💬</p>
-        <h3 class="font-display text-xl font-extrabold mt-2">2 · Read the group chat</h3>
-        <p class="font-bold text-sm text-[#57534E] mt-1">The pets roast the drama. Every joke hides a SAT word — tap it to learn it.</p>
-      </div>
-      <div class="sticker-card p-5 text-center">
-        <p class="text-4xl">🏆</p>
-        <h3 class="font-display text-xl font-extrabold mt-2">3 · Beat the Boss</h3>
-        <p class="font-bold text-sm text-[#57534E] mt-1">Spot the wrong word, win the battle, crush the SAT question. Unlock all 10 words in the Mastery Vault.</p>
-      </div>
-    </div>
-
-    <!-- For parents -->
-    <div class="sticker-card p-5 mt-6 bg-[#F3EEFF]">
-      <h3 class="font-display text-xl font-extrabold">For parents 👀</h3>
-      <p class="font-bold text-sm text-[#57534E] mt-1">Real SAT vocabulary with real definitions and real example sentences — taught through jokes kids actually remember. Free to play. No ads, no sign-up, no boring flashcards. New episodes and new subjects open up over time.</p>
-    </div>
-  </section>
-
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="border-t-[3px] border-[#1E1B4B] mt-8">
-    <div class="max-w-5xl mx-auto px-4 py-8 text-center">
-      <p class="font-display text-2xl font-extrabold">🔥 RoastPrep — Learn words by laughing.</p>
-      <p class="font-bold text-sm text-[#57534E] mt-2">Free to play · New episodes coming soon</p>
-      <p class="font-bold text-xs text-[#57534E] mt-2">© 2026 RoastPrep · Scripts and lessons may not be copied for commercial use · <a href="./terms.html" class="underline">Terms of Use</a></p>
-      <div class="mt-4 flex flex-wrap justify-center gap-3">
-        <a href="./game.html" class="toy-btn px-4 py-2 bg-[#FF477E] text-white text-sm font-extrabold">▶ Play the game</a>
-        <a href="#subjects" class="toy-btn px-4 py-2 bg-white text-sm font-extrabold">Browse subjects</a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:center;padding:28px 0 10px}
+.hero h1{font-size:clamp(36px,5.6vw,58px);line-height:1.04;margin:0 0 14px}.hero h1 em{font-style:normal;color:var(--pink)}
+.hero p.lead{font-size:19px;color:var(--muted);margin:0 0 24px;max-width:520px}.chips{margin-top:16px;color:var(--muted);font-size:14.5px;font-weight:600}
+.hero img{width:100%;height:auto;border-radius:20px;border:2px solid var(--ink);box-shadow:0 6px 0 var(--ink);display:block}
+section{padding-top:52px}section h2{font-size:30px;margin:0 0 6px}section .sub{color:var(--muted);margin:0 0 20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px}.si{font-size:28px}.st h3{margin:6px 0 4px;font-size:17px}.st p{margin:0;color:var(--muted);font-size:14.5px}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.strip figure{margin:0}.strip img{width:100%;height:auto;aspect-ratio:1019/434;object-fit:cover;background:var(--s2);border-radius:14px;display:block;border:1px solid var(--line)}.strip figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.eps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.eps li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;column-gap:10px}
+.ec{grid-row:span 2;font-weight:800;font-size:14px;color:var(--muted);white-space:nowrap}.eps b{font-size:15.5px}.es{color:var(--muted);font-size:14px}
+.par{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px 24px}.par ul{margin:8px 0 0;padding-left:20px}.par li{margin:6px 0}
+.cta{text-align:center;padding-top:52px}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.top nav a{margin-left:12px;font-size:14px}}
+</style></head><body><div class="wrap">
+<header class="top"><a class="logo" href="/">Roast<b>Prep</b></a><nav><a href="/#episodes">Episodes</a><a href="/#parents">Parents</a><a href="/play/">Play</a></nav></header>
+<div class="hero"><div>
+<h1>SAT words,<br>learned by <em>roasting history.</em></h1>
+<p class="lead">Five pets run a group chat about the most dramatic moments in history, from Versailles to a 1938 radio panic. Laugh first; the vocabulary sticks.</p>
+<a class="btn" href="/play/">▶ Play Season 1 free</a>
+<div class="chips">Grades 7–11 · 12 episodes · 55 SAT words · No account, no ads</div></div>
+<img src="/play/art/S01E01_tea.webp?v=cb322139" alt="Pop-art comic of a courtier stuck mid-bow at Versailles while two cats watch" width="1019" height="434"></div>
+<section><h2>How an episode works</h2><p class="sub">Each episode is short: 5 new SAT words, plus a few earlier ones coming back for review. The season finale is all review.</p><div class="steps"><div class="st"><div class="si">☕</div><h3>Tea time</h3><p>A pinned, one-minute recap of what happened in history, with a picture of the episode's funniest moment.</p></div><div class="st"><div class="si">💬</div><h3>The group chat</h3><p>Five pets gossip about it. New SAT words show up in the jokes; tap any word to see what it means.</p></div><div class="st"><div class="si">⚔️</div><h3>Boss battle</h3><p>Two words that look alike, one sentence. Pick the right one: imminent or eminent? discreet or discrete?</p></div><div class="st"><div class="si">🚨</div><h3>Word Cop</h3><p>One of the pets used a word wrong. Catch it.</p></div><div class="st"><div class="si">📝</div><h3>Bonus: SAT-style question</h3><p>An optional reading question in the style of the SAT, written for the episode and explained right after you answer.</p></div></div></section>
+<section><div class="strip"><figure><img src="/play/art/S01E06_tea.webp?v=c994cbe9" alt="" loading="lazy" width="1019" height="434"><figcaption>Bath, 1813</figcaption></figure><figure><img src="/play/art/S01E05_tea.webp?v=18b60a37" alt="" loading="lazy" width="1019" height="434"><figcaption>The Emperor&#x27;s New Clothes</figcaption></figure><figure><img src="/play/art/S01E03_tea.webp?v=27fc47c2" alt="" loading="lazy" width="1019" height="434"><figcaption>Westbrook High, 2026</figcaption></figure></div></section>
+<section id="episodes"><h2>Season 1 episodes</h2><p class="sub">Real history (and one fairy tale), retold as gossip. When the story bends a fact for a joke, a “Fact check” card says what really happened.</p><ul class="eps"><li><span class="ec">👑 E01</span><b>Versailles · 1788</b><span class="es">The flattery economy</span></li><li><span class="ec">🍰 E02</span><b>Paris · 1789</b><span class="es">“Let them eat cake”? Prove it.</span></li><li><span class="ec">🏫 E03</span><b>Westbrook High · 2026</b><span class="es">Student council election: persona edition</span></li><li><span class="ec">💎 E04</span><b>Newport · 1895</b><span class="es">A 70-room “cottage” and other humblebrags</span></li><li><span class="ec">👑 E05</span><b>The Emperor’s New Clothes</b><span class="es">Everyone sees it. (Nobody sees it.)</span></li><li><span class="ec">🎩 E06</span><b>Bath · 1813</b><span class="es">A ball with a LOT of rules (and one terrible matchmaker)</span></li><li><span class="ec">🎬 E07</span><b>Hollywood · 1928</b><span class="es">Movies learn to talk. Fake life stories do not survive.</span></li><li><span class="ec">📻 E08</span><b>New Jersey · 1938</b><span class="es">Martians on the radio. Panic in the newspapers. Wait — which part was real?</span></li><li><span class="ec">🖋️ E09</span><b>London · 1897</b><span class="es">The newspapers say Mark Twain is dead. Mark Twain disagrees.</span></li><li><span class="ec">📱 E10</span><b>Online · 2026</b><span class="es">The influencer apology video: three ring lights, perfectly timed tears</span></li><li><span class="ec">🎭 E11</span><b>Urbino · 1528</b><span class="es">The art of looking effortless (nine hours a day)</span></li><li><span class="ec">🎭 E12</span><b>Venice · 1760s · Finale</b><span class="es">A whole city in masks. One very tall wig.</span></li></ul></section>
+<section id="parents"><h2>For parents</h2><div class="par"><ul>
+<li><b>No accounts, no ads, no cookies.</b> Kids just open the page and play.</li>
+<li><b>Progress stays in this browser.</b> Pet names and any pet photos your kid adds never leave the device.</li>
+<li><b>We don't collect personal information from children.</b> At most we count anonymous totals, like how many times an episode was finished.</li>
+<li><b>Accuracy first.</b> Definitions and questions are reviewed before release, and a joke never changes what a word means.</li>
+<li>Optional Chinese hints (中文) for bilingual families: tap 中文 in the game.</li></ul>
+<p style="margin:12px 0 0">Details: <a href="/privacy.html">Privacy policy</a>. Questions: <a href="mailto:hello@roastprep.com">hello@roastprep.com</a></p></div></section>
+<div class="cta"><a class="btn" href="/play/">▶ Start Episode 1: Versailles, 1788</a></div>
+<footer><a href="/play/">Play Season 1</a><a href="/privacy.html">Privacy</a><a href="mailto:hello@roastprep.com">hello@roastprep.com</a><br>© 2026 RoastPrep · SAT is a trademark of the College Board, which is not affiliated with and does not endorse RoastPrep.</footer>
+</div></body></html>
