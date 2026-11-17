@@ -25,3 +25,6 @@ alarmist, apocryphal, artifice, authentic, candid, complacent, complicit, confor
 ## For parents
 - [Privacy policy](https://roastprep.com/privacy.html): no personal information collected from children; progress stays on the device.
 - Contact: hello@roastprep.com
+
+## Vocabulary cards
+- [60 SAT Words](https://roastprep.com/cards/): the full vocabulary deck, one funny four-panel card per word, free to browse.

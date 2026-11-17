@@ -9,3 +9,9 @@
 
 /og.jpg
   Cache-Control: public, max-age=86400
+
+/cards/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/cards/thumb/*
+  Cache-Control: public, max-age=31536000, immutable
