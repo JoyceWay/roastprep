@@ -3,6 +3,7 @@
 > RoastPrep is a free browser game that teaches SAT vocabulary to students in grades 7–11 (about ages 12–17). Five pets gossip in a group chat about real moments in history; each episode introduces 5 SAT words, then tests them with a look-alike-word "Boss battle", a "Word Cop" misuse check, and one SAT-style reading question. No account, no ads, no cookies. Optional Chinese hints for bilingual families.
 
 ## Play
+- [Season 1 intro](https://roastprep.com/season1/): how the game works, all 12 episodes.
 - [Play Season 1](https://roastprep.com/play/): 12 episodes, 55 SAT words, free.
 
 ## Season 1 episodes
